@@ -1,6 +1,7 @@
 import pandas as pd
 from db_connect import db_connect
 
+
 def get_data():
     # Haal connectie op
     conn = db_connect()
@@ -35,4 +36,6 @@ def get_data():
     # Sluit connectie
     conn.close()
     return df_groep5
+
+
 print(get_data())

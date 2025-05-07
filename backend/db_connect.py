@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 # Load environment variables from .env
 load_dotenv()
 
+
 def db_connect():
     # Fetch variables
     USER = os.getenv("user")
@@ -18,7 +19,7 @@ def db_connect():
     try:
         engine = create_engine(f"postgresql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DBNAME}")
         connection = engine.connect()
-        
+
         return connection
 
     except Exception as e:

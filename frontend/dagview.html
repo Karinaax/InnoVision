@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Dag view</title>
+
+		<link rel="stylesheet" href="styles.css" />
+        <!-- ✅ JAVASCRIPT LOGICA -->
+        <script>
+            function openModal(contentHtml) {
+            document.getElementById("modalText").innerHTML = contentHtml;
+            document.getElementById("myModal").style.display = "block";
+            }
+        
+            function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+            }
+        
+            // Sluit modal bij klik buiten de inhoud
+            window.onclick = function(event) {
+            const modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+            };
+        
+            // Voorbeeld: voeg click-event toe aan alle events
+            document.addEventListener("DOMContentLoaded", function () {
+            const events = document.querySelectorAll(".event.double");
+            events.forEach(function (el) {
+                el.addEventListener("click", function () {
+                const eventText = el.innerText.trim();
+                
+                // ✅ HIER bepaal je wat er in de popup komt te staan
+                const content = `
+                    <h2>Event Info</h2>
+                    <p><strong>Details:</strong> ${eventText}</p>
+                    <p>Dit is extra informatie over het geselecteerde event.</p>
+                `;
+                
+                openModal(content);
+                });
+            });
+            });
+        </script>
+	</head>
+
+	<body>
+        <!-- Pop-up event -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    
+    <!-- ✅ HIER ZET JE JE EIGEN TEKST -->
+    <div id="modalText">
+      <!-- Je kunt dit stuk vullen met wat je wilt, bijv.: -->
+      <h2>Titel van je event</h2>
+      <p>Hier komt de informatie over het event. Je kunt HTML gebruiken.</p>
+    </div>
+
+  </div>
+</div>
+
+
+		<div class="calendar">
+			<header>
+				<button class="secondary back" style="align-self: flex-start; flex: 0 0 1">Terug</button>
+				<div class="calendar__title" style="display: flex; justify-content: center; align-items: center">
+					<div class="icon secondary chevron_left">‹</div>
+					<h1 class="today" style="flex: 1;">woensdag, 20 April</h1>
+					<div class="icon secondary chevron_left">›</div>
+				</div>
+				<div style="align-self: flex-start; flex: 0 0 1"></div>
+			</header>
+
+			<div class="outer">
+				<div class="wrap">
+					<table class="offset">
+						<tbody>
+							<tr>
+								<td class="headcol"></td>
+
+								<td class="past"></td>
+							</tr>
+							<tr>
+								<td class="headcol">6:00</td>
+
+								<td class="past"></td>
+							</tr>
+							<tr>
+								<td class="headcol"></td>
+
+								<td class="past"></td>
+							</tr>
+							<tr>
+								<td class="headcol">7:00</td>
+
+								<td class="past"></td>
+							</tr>
+							<tr>
+								<td class="headcol"></td>
+
+								<td class="now"></td>
+							</tr>
+							<tr>
+								<td class="headcol">8:00</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol">9:00</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol">10:00</td>
+								<td>
+									<div class="event double"><input id="check" type="checkbox" class="checkbox" /><label for="check"></label>10:00–11:00 Meeting</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="headcol"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol">11:00</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol">12:00</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol">13:00</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol">14:00</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol">15:00</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol">16:00</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol">17:00</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol">18:00</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="headcol"></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
