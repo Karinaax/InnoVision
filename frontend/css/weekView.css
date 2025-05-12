@@ -11,7 +11,6 @@ html, body {
   background-color: #f9fafc;
 }
 
-/* Layout Container */
 body {
   display: flex;
   justify-content: center;
@@ -19,7 +18,6 @@ body {
   padding: 20px;
 }
 
-/* Weekview */
 .weekview {
   width: 100%;
   height: 90%;
@@ -33,7 +31,6 @@ body {
   flex-direction: column;
 }
 
-/* Knoppen linksboven */
 .buttons {
   display: flex;
   flex-direction: column;
@@ -59,7 +56,6 @@ body {
       border: 3px solid #A64DF4;
 }
 
-/* Header */
 .header {
   display: flex;
   justify-content: space-between;
@@ -97,7 +93,6 @@ body {
     cursor: not-allowed;
 }
 
-/* Dagen-weergave */
 .days {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -109,13 +104,13 @@ body {
 .day {
   border: 3px solid #262626;
   border-radius: 10px;
-  padding: 10px; /* Verklein de padding */
+  padding: 10px;
   background-color: #FAFAF9;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   position: relative;
-  height: 35vh; /* Pas de hoogte aan */
+  height: 35vh;
 }
 
 .day-header {
@@ -137,10 +132,9 @@ body {
 }
 
 .date.today {
-  background-color: #DC2626; /* Highlight voor de huidige dag */
+  background-color: #DC2626; 
 }
 
-/* Taken */
 .event {
   margin-top: 10px;
   padding: 10px;
@@ -170,28 +164,27 @@ body {
 
 }
 
-/* Voettekst */
 footer {
   text-align: center;
-  margin-top: 10px; /* Voeg meer ruimte boven de footer toe */
+  margin-top: 10px;
   font-size: 1.875rem;
   color: #262626;
-  margin: 0 auto; /* Zorg ervoor dat de footer gecentreerd is */
+  margin: 0 auto;
 }
 
 .footer-container {
   display: flex;
-  justify-content: space-between; /* Plaats items links en rechts */
-  align-items: center; /* Verticaal uitlijnen */
-  max-width: 80%; /* Maximale breedte van de container */
-  margin: 0 auto; /* Zorg dat de container gecentreerd is */
-  gap: 12vw; /* Voeg extra ruimte tussen de items toe */
+  justify-content: space-between;
+  align-items: center;
+  max-width: 80%;
+  margin: 0 auto;
+  gap: 12vw;
 }
 
 .test {
-  margin: 0; /* Verwijder standaardmarges */
-  border-bottom: 3px dashed #262626; /* Zet een border onder de tekst */
-  padding-bottom: 5px; /* Voeg wat ruimte toe tussen de tekst en de border */
+  margin: 0;
+  border-bottom: 3px dashed #262626;
+  padding-bottom: 5px;
   margin-left: 15vw;
   margin-top: -10vh;
   width: 45vw;
@@ -204,7 +197,6 @@ footer {
 
 
 
-/* Responsiviteit */
 @media (max-width: 768px) {
   .weekview {
       padding: 15px;
