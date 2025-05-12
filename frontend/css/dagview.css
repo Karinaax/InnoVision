@@ -1,0 +1,52 @@
+
+
+.mascot {
+    height: 250px;
+    width: auto;
+    position: relative;
+    top: 250px;
+    border-radius: 8px;
+}
+
+.event {
+    display: flex;
+    height: 10%;
+    font-size: x-large;
+    align-items: anchor-center;
+    color: black;
+    text-align: left;
+    border-radius: 10px;
+    z-index: 2;
+    padding: 0.5rem;
+    overflow-x: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .event-button{
+    display: flex;
+    height: 10%;
+    font-size: x-large;
+    align-items: anchor-center;
+    color: black;
+    text-align: center;
+    border-radius: 10px;
+    /* z-index: 2; */
+    padding: 0.5rem;
+    overflow-x: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .event-homework {
+    width: 75%;
+  }
+  
+/* Rectangle 24 */
+
+/*
+
+background: #939C9B;
+border-radius: 16px; */

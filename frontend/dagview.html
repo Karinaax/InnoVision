@@ -6,67 +6,32 @@
 
 		<title>Dag view</title>
 
-		<link rel="stylesheet" href="styles.css" />
-        <!-- ✅ JAVASCRIPT LOGICA -->
-        <script>
-            function openModal(contentHtml) {
-            document.getElementById("modalText").innerHTML = contentHtml;
-            document.getElementById("myModal").style.display = "block";
-            }
-        
-            function closeModal() {
-            document.getElementById("myModal").style.display = "none";
-            }
-        
-            // Sluit modal bij klik buiten de inhoud
-            window.onclick = function(event) {
-            const modal = document.getElementById("myModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-            };
-        
-            // Voorbeeld: voeg click-event toe aan alle events
-            document.addEventListener("DOMContentLoaded", function () {
-            const events = document.querySelectorAll(".event.double");
-            events.forEach(function (el) {
-                el.addEventListener("click", function () {
-                const eventText = el.innerText.trim();
-                
-                // ✅ HIER bepaal je wat er in de popup komt te staan
-                const content = `
-                    <h2>Event Info</h2>
-                    <p><strong>Details:</strong> ${eventText}</p>
-                    <p>Dit is extra informatie over het geselecteerde event.</p>
-                `;
-                
-                openModal(content);
-                });
-            });
-            });
-        </script>
+		<link rel="stylesheet" href="css/styles.css" />
+		<link rel="stylesheet" href="css/popup.css" />
+		<link rel="stylesheet" href="css/dagview.css" />
+		<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Karla:wght@400;700&display=swap" rel="stylesheet">
+
+		<script src="js/dagview_popup.js"></script>
 	</head>
 
 	<body>
         <!-- Pop-up event -->
 <div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    
-    <!-- ✅ HIER ZET JE JE EIGEN TEKST -->
-    <div id="modalText">
-      <!-- Je kunt dit stuk vullen met wat je wilt, bijv.: -->
-      <h2>Titel van je event</h2>
-      <p>Hier komt de informatie over het event. Je kunt HTML gebruiken.</p>
-    </div>
+  	<div class="modal-content">
+    	<span class="close" onclick="closeModal()">&times;</span>
+    	<div id="modalText"></div>
+	<button class="extra-uitleg">Extra uitleg</button>
 
-  </div>
+  	</div>
 </div>
 
+<!-- 
+	 -->
 
 		<div class="calendar">
+
 			<header>
-				<button class="secondary back" style="align-self: flex-start; flex: 0 0 1">Terug</button>
+				<a href="home.html"><button class="secondary back" style="align-self: flex-start; flex: 0 0 1">Terug</button></a>
 				<div class="calendar__title" style="display: flex; justify-content: center; align-items: center">
 					<div class="icon secondary chevron_left">‹</div>
 					<h1 class="today" style="flex: 1;">woensdag, 20 April</h1>
@@ -77,127 +42,41 @@
 
 			<div class="outer">
 				<div class="wrap">
+
 					<table class="offset">
 						<tbody>
 							<tr>
-								<td class="headcol"></td>
-
-								<td class="past"></td>
-							</tr>
-							<tr>
-								<td class="headcol">6:00</td>
-
-								<td class="past"></td>
-							</tr>
-							<tr>
-								<td class="headcol"></td>
-
-								<td class="past"></td>
-							</tr>
-							<tr>
-								<td class="headcol">7:00</td>
-
-								<td class="past"></td>
-							</tr>
-							<tr>
-								<td class="headcol"></td>
-
-								<td class="now"></td>
-							</tr>
-							<tr>
-								<td class="headcol">8:00</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol"></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol">9:00</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol"></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol">10:00</td>
-								<td>
-									<div class="event double"><input id="check" type="checkbox" class="checkbox" /><label for="check"></label>10:00–11:00 Meeting</div>
+								<td class="event-homework">
+									<div class="event">
+										<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<rect x="1.5" y="1.5" width="49" height="49" rx="14.5" fill="#FEF08A"/>
+											<rect x="1.5" y="1.5" width="49" height="49" rx="14.5" stroke="#262626" stroke-width="3"/>
+											<path d="M23.6667 33.5831C23.6667 33.7363 23.6365 33.888 23.5779 34.0295C23.5192 34.1711 23.4333 34.2997 23.325 34.408C23.2166 34.5164 23.088 34.6023 22.9465 34.6609C22.8049 34.7196 22.6532 34.7497 22.5 34.7497H19V38.2497C19 38.5592 18.8771 38.8559 18.6583 39.0747C18.4395 39.2935 18.1428 39.4164 17.8333 39.4164C17.5239 39.4164 17.2272 39.2935 17.0084 39.0747C16.7896 38.8559 16.6667 38.5592 16.6667 38.2497V34.7497H13.1667C12.8572 34.7497 12.5605 34.6268 12.3417 34.408C12.1229 34.1892 12 33.8925 12 33.5831C12 33.2737 12.1229 32.9769 12.3417 32.7581C12.5605 32.5393 12.8572 32.4164 13.1667 32.4164H16.6667V28.9164C16.6667 28.607 16.7896 28.3102 17.0084 28.0915C17.2272 27.8727 17.5239 27.7497 17.8333 27.7497C18.1428 27.7497 18.4395 27.8727 18.6583 28.0915C18.8771 28.3102 19 28.607 19 28.9164V32.4164H22.5C22.6532 32.4164 22.8049 32.4466 22.9465 32.5052C23.088 32.5638 23.2166 32.6498 23.325 32.7581C23.4333 32.8664 23.5192 32.9951 23.5779 33.1366C23.6365 33.2782 23.6667 33.4299 23.6667 33.5831ZM22.5 16.0831H13.1667C12.8572 16.0831 12.5605 16.206 12.3417 16.4248C12.1229 16.6436 12 16.9403 12 17.2497C12 17.5592 12.1229 17.8559 12.3417 18.0747C12.5605 18.2935 12.8572 18.4164 13.1667 18.4164H22.5C22.8094 18.4164 23.1062 18.2935 23.325 18.0747C23.5437 17.8559 23.6667 17.5592 23.6667 17.2497C23.6667 16.9403 23.5437 16.6436 23.325 16.4248C23.1062 16.206 22.8094 16.0831 22.5 16.0831ZM29.5 32.4261H38.8333C39.1428 32.4261 39.4395 32.3032 39.6583 32.0844C39.8771 31.8656 40 31.5688 40 31.2594C40 30.95 39.8771 30.6533 39.6583 30.4345C39.4395 30.2157 39.1428 30.0928 38.8333 30.0928H29.5C29.1906 30.0928 28.8938 30.2157 28.675 30.4345C28.4562 30.6533 28.3333 30.95 28.3333 31.2594C28.3333 31.5688 28.4562 31.8656 28.675 32.0844C28.8938 32.3032 29.1906 32.4261 29.5 32.4261ZM38.8333 34.7401H29.5C29.1906 34.7401 28.8938 34.863 28.675 35.0818C28.4562 35.3006 28.3333 35.5973 28.3333 35.9067C28.3333 36.2161 28.4562 36.5129 28.675 36.7317C28.8938 36.9505 29.1906 37.0734 29.5 37.0734H38.8333C39.1428 37.0734 39.4395 36.9505 39.6583 36.7317C39.8771 36.5129 40 36.2161 40 35.9067C40 35.5973 39.8771 35.3006 39.6583 35.0818C39.4395 34.863 39.1428 34.7401 38.8333 34.7401ZM29.8417 21.5747C29.9501 21.683 30.0787 21.769 30.2202 21.8276C30.3618 21.8862 30.5135 21.9164 30.6667 21.9164C30.8199 21.9164 30.9716 21.8862 31.1131 21.8276C31.2547 21.769 31.3833 21.683 31.4916 21.5747L34.1667 18.8996L36.8417 21.5747C36.95 21.6831 37.0786 21.7692 37.2202 21.8279C37.3618 21.8866 37.5135 21.9169 37.6668 21.9169C37.8201 21.917 37.9719 21.8868 38.1135 21.8282C38.2551 21.7695 38.3837 21.6836 38.4921 21.5752C38.6005 21.4668 38.6865 21.3382 38.7451 21.1965C38.8037 21.0549 38.8339 20.9032 38.8338 20.7499C38.8338 20.5966 38.8035 20.4449 38.7448 20.3033C38.6861 20.1617 38.6001 20.0331 38.4916 19.9248L35.8166 17.2497L38.4916 14.5747C38.7102 14.3558 38.8329 14.0592 38.8328 13.7499C38.8327 13.4406 38.7098 13.144 38.4911 12.9253C38.2724 12.7066 37.9758 12.5837 37.6665 12.5836C37.3572 12.5835 37.0606 12.7062 36.8417 12.9248L34.1667 15.5999L31.4916 12.9248C31.2728 12.7062 30.9761 12.5835 30.6668 12.5836C30.3575 12.5837 30.0609 12.7066 29.8422 12.9253C29.6235 13.144 29.5006 13.4406 29.5005 13.7499C29.5004 14.0592 29.6232 14.3558 29.8417 14.5747L32.5168 17.2497L29.8417 19.9248C29.7334 20.0331 29.6474 20.1617 29.5888 20.3033C29.5302 20.4448 29.5 20.5965 29.5 20.7497C29.5 20.903 29.5302 21.0547 29.5888 21.1962C29.6474 21.3378 29.7334 21.4664 29.8417 21.5747Z" fill="#262626"/>
+										</svg>
+										Huiswerk Rekenen
+									</div>
 								</td>
-							</tr>
-							<tr>
-								<td class="headcol"></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol">11:00</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol"></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol">12:00</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol"></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol">13:00</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol"></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol">14:00</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol"></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol">15:00</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol"></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol">16:00</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol"></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol">17:00</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol"></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol">18:00</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="headcol"></td>
-								<td></td>
+								<td>
+									<div class="event-button">
+										Gemaakt
+										<img src="./components/icons/Gemaakt.png">
+											
+									</div>
+								</td>
 							</tr>
 						</tbody>
 					</table>
+
+				</div>
+				<div>
+				<img class="mascot" src="./components/mascot/kai.png">
 				</div>
 			</div>
+
 		</div>
+
+
+
+
 	</body>
 </html>

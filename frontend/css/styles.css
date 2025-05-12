@@ -18,18 +18,19 @@
   
   }
   
-  .offset {
+  /* .offset {
   
-  }
+  } */
   
   .outer {
+    display: flex;
+    min-width: 80%;
     position:relative;
   }
   
   .calendar {
-      margin: 0 auto;
-    max-width: 1280px;
-    min-width: 500px;
+    margin: 0 auto;
+    min-width: 100%;
   
     box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.2) ,0px 3px 7px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -38,7 +39,6 @@
   
     overflow-x: hidden;
     overflow-y: scroll;
-      max-width: 1280px;
     height: 500px;
     border-radius: 8px;
   }
@@ -150,52 +150,9 @@
   }
   
   
-  .checkbox {
-     display: none;
-  }
+ 
   
-  .checkbox + label {
-      border: 0;
-      outline: 0;
-      width: 100px;
-      height: 100px;
-      background: white;
-      color: transparent;
-      display:block;
-    display: none;
-  }
-  
-  .checkbox:checked + label {
-      border: 0;
-      outline: 0;
-      width: 100%;
-      height: 100%;
-      background: red;
-      color: transparent;
-      display: inline-block;
-  }
-  
-  .event {
-    background: #00B4FC;
-    color: white;
-    border-radius: 2px;
-    text-align: left;
-    font-size: 0.875rem;
-    z-index: 2;
-    padding: 0.5rem;
-    overflow-x: hidden;
-    transition: all 0.2s;
-    cursor: pointer;
-  }
-  
-  .event:hover {
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-    background: #00B4FC;
-  }
-  
-  .event.double {
-    height: 200%;
-  }
+
   
   /**
   thead {
@@ -214,14 +171,7 @@
   
   
   
-  td:hover:after {
-    content: "+";
-    vertical-align: middle;
-    font-size: 1.875rem;
-    font-weight: 100;
-    color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-  }
+
   
   button.secondary {
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -243,13 +193,13 @@
   button.secondary:focus {
     outline: 0;
   }
-  
+/*   
   tr td:nth-child(2), tr td:nth-child(3), .past {
     background: #fafafa;
-  }
+  } */
   
   .today {
-    color: red;
+    color: black;
   }
   
   .now {
