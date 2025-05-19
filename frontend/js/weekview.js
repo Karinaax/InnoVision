@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const daysContainer = document.getElementById("daysContainer");
     const monthTitle = document.getElementById("monthTitle");
+    const monthTest = document.getElementById("MonthTest");
     const prevWeekButton = document.getElementById("prevWeek");
     const nextWeekButton = document.getElementById("nextWeek");
 
@@ -28,7 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
             "Januari", "Februari", "Maart", "April", "Mei", "Juni",
             "Juli", "Augustus", "September", "Oktober", "November", "December"
         ];
-        monthTitle.textContent = `${monthNames[startOfWeek.getMonth()]} ${startOfWeek.getFullYear()}`;
+        monthTitle.textContent = `${monthNames[startOfWeek.getMonth()].toLowerCase()} ${startOfWeek.getFullYear()}`;
+        monthTest.textContent = `${monthNames[startOfWeek.getMonth()].toLowerCase()}`;
 
         // Voeg de dagen toe
         for (let i = 0; i < 5; i++) {
