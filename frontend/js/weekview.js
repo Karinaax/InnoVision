@@ -3,6 +3,7 @@ import { fetchHomework } from './api.js';
 document.addEventListener("DOMContentLoaded", async function () {
     const daysContainer = document.getElementById("daysContainer");
     const monthTitle = document.getElementById("monthTitle");
+    const monthTest = document.getElementById("MonthTest");
     const prevWeekButton = document.getElementById("prevWeek");
     const nextWeekButton = document.getElementById("nextWeek");
 
@@ -27,7 +28,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             "Januari", "Februari", "Maart", "April", "Mei", "Juni",
             "Juli", "Augustus", "September", "Oktober", "November", "December"
         ];
-        monthTitle.textContent = `${monthNames[startOfWeek.getMonth()]} ${startOfWeek.getFullYear()}`;
+        monthTitle.textContent = `${monthNames[startOfWeek.getMonth()].toLowerCase()} ${startOfWeek.getFullYear()}`;
+        monthTest.textContent = `${monthNames[startOfWeek.getMonth()].toLowerCase()}`;
 
         for (let i = 0; i < 5; i++) {
             const dayDate = new Date(startOfWeek);
