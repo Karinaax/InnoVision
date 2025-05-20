@@ -134,35 +134,6 @@ body {
   background-color: #DC2626; 
 }
 
-.event {
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  color: #262626;
-  font-size: 0.9rem;
-  text-align: center;
-  font-weight: bold;
-  display: inline-block;
-  font-family: Kalam, sans-serif;
-}
-
-.event.math {
-  background-color: #FAFAF9;
-  border: 2px solid #262626;
-}
-
-.event.art {
-  background-color: #FAFAF9;
-  border: 2px solid #262626;
-
-}
-
-.event.general {
-  background-color: #FAFAF9;
-  border: 2px solid #262626;
-
-}
-
 footer {
   text-align: center;
   margin-top: 10px;

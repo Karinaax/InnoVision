@@ -1,36 +1,34 @@
-document.addEventListener("DOMContentLoaded", function () {
+import { fetchHomework } from './api.js';
+
+document.addEventListener("DOMContentLoaded", async function () {
     const daysContainer = document.getElementById("daysContainer");
     const monthTitle = document.getElementById("monthTitle");
     const prevWeekButton = document.getElementById("prevWeek");
     const nextWeekButton = document.getElementById("nextWeek");
 
-    // Startdatum (huidige datum)
     const today = new Date();
     let currentDate = new Date(today);
 
-    // Bereken de grenzen: begin en einde van toegestane periode
     const minDate = new Date(today);
     minDate.setDate(today.getDate() - 7);
 
     const maxDate = new Date(today);
     maxDate.setDate(today.getDate() + 7);
 
-    // Functie om de weekweergave te updaten
-    function updateWeekView() {
-        daysContainer.innerHTML = ""; // Maak de container leeg
+    let homeworkData = [];
 
-        // Bereken de start van de week (maandag)
+    async function updateWeekView() {
+        daysContainer.innerHTML = ""; // Reset container
+
         const startOfWeek = new Date(currentDate);
         startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + 1);
 
-        // Update de maand en het jaar in de header
         const monthNames = [
             "Januari", "Februari", "Maart", "April", "Mei", "Juni",
             "Juli", "Augustus", "September", "Oktober", "November", "December"
         ];
         monthTitle.textContent = `${monthNames[startOfWeek.getMonth()]} ${startOfWeek.getFullYear()}`;
 
-        // Voeg de dagen toe
         for (let i = 0; i < 5; i++) {
             const dayDate = new Date(startOfWeek);
             dayDate.setDate(startOfWeek.getDate() + i);
@@ -48,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const dateSpan = document.createElement("span");
             dateSpan.className = "date";
             if (isSameDate(dayDate, today)) {
-                dateSpan.classList.add("today"); // Markeer de huidige dag
+                dateSpan.classList.add("today");
             }
             dateSpan.textContent = dayDate.getDate().toString().padStart(2, "0");
 
@@ -56,14 +54,35 @@ document.addEventListener("DOMContentLoaded", function () {
             dayHeader.appendChild(dateSpan);
             dayElement.appendChild(dayHeader);
 
+            // Voeg huiswerk toe
+            const homeworkList = document.createElement("div");
+            homeworkList.className = "homework-list";
+
+            const dailyHomework = homeworkData.filter(hw => isSameDate(new Date(hw.datum), dayDate));
+            dailyHomework.forEach(hw => {
+                const homeworkItem = document.createElement("div");
+                homeworkItem.className = "homework-item";
+                homeworkItem.style.borderLeft = `5px solid ${hw.color || "#000"}`;
+
+                const homeworkTitle = document.createElement("span");
+                homeworkTitle.textContent = hw.opdracht;
+
+                const homeworkChild = document.createElement("span");
+                homeworkChild.className = "homework-child";
+                homeworkChild.textContent = hw.kind;
+
+                homeworkItem.appendChild(homeworkTitle);
+                homeworkItem.appendChild(homeworkChild);
+                homeworkList.appendChild(homeworkItem);
+            });
+
+            dayElement.appendChild(homeworkList);
             daysContainer.appendChild(dayElement);
         }
 
-        // Update de knoppenstatus
         updateButtonStates();
     }
 
-    // Helperfunctie om te controleren of twee datums gelijk zijn
     function isSameDate(date1, date2) {
         return (
             date1.getFullYear() === date2.getFullYear() &&
@@ -72,40 +91,30 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
-    // Functie om de status van de knoppen te updaten
     function updateButtonStates() {
-        if (currentDate <= minDate) {
-            prevWeekButton.disabled = true;
-            prevWeekButton.classList.add("disabled");
-        } else {
-            prevWeekButton.disabled = false;
-            prevWeekButton.classList.remove("disabled");
-        }
-
-        if (currentDate >= maxDate) {
-            nextWeekButton.disabled = true;
-            nextWeekButton.classList.add("disabled");
-        } else {
-            nextWeekButton.disabled = false;
-            nextWeekButton.classList.remove("disabled");
-        }
+        prevWeekButton.disabled = currentDate <= minDate;
+        nextWeekButton.disabled = currentDate >= maxDate;
     }
 
-    // Eventlisteners voor de navigatieknoppen
-    prevWeekButton.addEventListener("click", function () {
+    prevWeekButton.addEventListener("click", async function () {
         if (currentDate > minDate) {
             currentDate.setDate(currentDate.getDate() - 7);
-            updateWeekView();
+            await updateWeekView();
         }
     });
 
-    nextWeekButton.addEventListener("click", function () {
+    nextWeekButton.addEventListener("click", async function () {
         if (currentDate < maxDate) {
             currentDate.setDate(currentDate.getDate() + 7);
-            updateWeekView();
+            await updateWeekView();
         }
     });
 
-    // Initialiseer de weergave
-    updateWeekView();
+    async function fetchHomeworkData() {
+        const ouderid = 1; // Dummy ouderid; update dit voor een echte gebruiker
+        homeworkData = await fetchHomework(ouderid) || [];
+        await updateWeekView();
+    }
+
+    await fetchHomeworkData();
 });
