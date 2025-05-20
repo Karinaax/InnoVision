@@ -33,9 +33,9 @@
 			<header>
 				<a href="home.html"><button class="secondary back" style="align-self: flex-start; flex: 0 0 1">Terug</button></a>
 				<div class="calendar__title" style="display: flex; justify-content: center; align-items: center">
-					<div class="icon secondary chevron_left">‹</div>
+					<div class="icon secondary chevron_left"><--</div>
 					<h1 class="today" style="flex: 1;">woensdag, 20 April</h1>
-					<div class="icon secondary chevron_left">›</div>
+					<div class="icon secondary chevron_left">--></div>
 				</div>
 				<div style="align-self: flex-start; flex: 0 0 1"></div>
 			</header>
@@ -57,10 +57,9 @@
 									</div>
 								</td>
 								<td>
-									<div class="event-button">
+									<div class="event-button" onclick="toggleEventButton(this)">
 										Gemaakt
-										<img src="./components/icons/Gemaakt.png">
-											
+										<img src="./components/icons/Gemaakt.png" class="event-icon">
 									</div>
 								</td>
 							</tr>

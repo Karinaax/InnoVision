@@ -17,7 +17,7 @@ def get_data():
         k.voornaam, 
         k.achternaam, 
         h.datumgekregen, 
-        h.datumingeleverd, 
+        h.datumafgevinkt, 
         h.deadline, 
         v.naam, 
         v.beschrijving 

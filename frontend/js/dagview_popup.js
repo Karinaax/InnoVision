@@ -1,4 +1,3 @@
-
 function openModal(contentHtml) {
 document.getElementById("modalText").innerHTML = contentHtml;
 document.getElementById("myModal").style.display = "block";
@@ -34,3 +33,22 @@ events.forEach(function (el) {
     });
 });
 });
+
+function toggleEventButton(button) {
+    button.classList.toggle('active');
+    
+    const mascot = document.querySelector('.mascot');
+    if (button.classList.contains('active')) {
+        // Verander de mascot naar video
+        mascot.outerHTML = `
+            <video class="mascot" autoplay loop muted>
+                <source src="./components/mascot/pandaWave.mp4" type="video/mp4">
+            </video>
+        `;
+    } else {
+        // Verander terug naar de originele afbeelding
+        mascot.outerHTML = `
+            <img class="mascot" src="./components/mascot/kai.png">
+        `;
+    }
+}
