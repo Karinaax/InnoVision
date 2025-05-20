@@ -1,0 +1,81 @@
+.mascot {
+    height: 250px;
+    width: auto;
+    position: relative;
+    top: 250px;
+    border-radius: 8px;
+}
+
+.event {
+    display: flex;
+    height: 10%;
+    font-size: x-large;
+    align-items: anchor-center;
+    color: black;
+    text-align: left;
+    border-radius: 10px;
+    z-index: 2;
+    padding: 0.5rem;
+    overflow-x: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    border: 2px solid white;
+  }
+
+  .event-button{
+    display: flex;
+    height: 10%;
+    font-size: x-large;
+    align-items: anchor-center;
+    color: black;
+    justify-content: center;
+    /* z-index: 2; */
+    padding: 0.5rem;
+    overflow-x: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    border: 2px solid #939C9B;
+  }
+
+  .event-homework {
+    width: 75%;
+    height: 100%;
+  }
+  
+/* Rectangle 24 */
+
+/*
+
+background: #939C9B;
+border-radius: 16px; */
+
+.event-button {
+    cursor: pointer;
+    padding: 10px;
+    /* border-radius: 8px; */
+    transition: background-color 0.3s ease;
+}
+
+.event-button.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.event-icon {
+    display: none;
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.event-button.active .event-icon {
+    display: inline-block;
+}
+
+.icon .secondary .chevron_left {
+  font-size: x-large;
+}
