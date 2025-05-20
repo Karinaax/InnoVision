@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekweergave</title>
+    <link rel="stylesheet" href="css/weekView.css">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Karla:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="weekview">
+        <div class="buttons">
+            <button class="circle blue"><img
+  src="https://api.dicebear.com/9.x/fun-emoji/svg?seed=Felix&scale=50&radius=50"
+  alt="avatar"
+/></button>
+            <button class="circle purple"><img
+  src="https://api.dicebear.com/9.x/fun-emoji/svg?seed=Aneka&scale=50&radius=50"
+  alt="avatar"
+/></button>
+        </div>
+        <div class="header">
+    <h2 id="monthTitle"></h2>
+    <div class="navigation">
+        <button id="prevWeek">&lt;</button>
+        <span id="todayButton">Vandaag</span>
+        <button id="nextWeek">&gt;</button>
+    </div>
+</div>
+<div class="days" id="daysContainer" onclick="document.location='popups/test.html'">
+    <!-- De dagen worden hier dynamisch ingevuld door JavaScript -->
+</div>
+        
+    <footer>
+        <div class="footer-container">
+            <p class="test">Toetsen in <span id="MonthTest">[maand]</span></p>
+            <img class="mascot" src="components/mascot/pandaWave.gif" alt="panda zwaait">
+        </div>
+    </footer>
+
+    </div>
+    <script src="js/weekview.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kalender in zicht</title>
+  <link rel="stylesheet" href="css/login.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Karla:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div class="calendar-background">
+    <div class="calendar">
+      <header>
+        <button class="bg-blue-500 text-white px-3 py-1 rounded">Vandaag</button>
+        <div
+          class="calendar__title"
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <h1 style="flex: 1"><strong>12 MEI – 16 MEI</strong> 2025</h1>
+          <div class="icon secondary chevron_left">›</div>
+        </div>
+      </header>
+    </div>
+  </div>
+
+  <div class="login-overlay">
+    <div class="login-container">
+      <div class="login-left">
+        <h2 class="text-xl font-bold mb-4">Inloggen</h2>
+
+        <!-- 6-cijferige code display -->
+        <div id="code-display" class="dots">_ _ _ _ _ _</div>
+        <!-- <button id="confirm-btn" class="confirm-btn">✔ bevestigen</button> -->
+      </div>
+
+      <!-- Keypad knoppen -->
+      <div id="keypad" class="keypad">
+        <button class="key">1</button>
+        <button class="key">2</button>
+        <button class="key">3</button>
+        <button class="key">4</button>
+        <button class="key">5</button>
+        <button class="key">6</button>
+        <button class="key">7</button>
+        <button class="key">8</button>
+        <button class="key">9</button>
+        <button class="key">✕</button>
+        <button class="key">0</button>
+        <button class="key">✓</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./js/login.js"></script>
+</body>
+</html>
