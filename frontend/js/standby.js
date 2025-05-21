@@ -1,5 +1,3 @@
-import { haalHuiswerkOp } from './api.js';
-
 document.addEventListener("DOMContentLoaded", function () {
     const daysContainer = document.getElementById("daysContainer");
     const monthTitle = document.getElementById("monthTitle");
@@ -110,7 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    haalHuiswerkOp()
     // Initialiseer de weergave
     updateWeekView();
 });
