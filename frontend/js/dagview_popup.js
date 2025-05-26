@@ -24,9 +24,9 @@ events.forEach(function (el) {
     
     // ✅ HIER bepaal je wat er in de popup komt te staan
     const content = `
-        <h2>${eventText}</h2>
-        <p><strong>Beschrijving:</strong> ${eventText}</p>
-        <p>Dit is extra informatie over het geselecteerde event.</p>
+        <h2>[naam vak]</h2>
+        <p><strong>Video uitleg:</strong></p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/h8j6CT4LVQo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
     `;
     
     openModal(content);
@@ -52,3 +52,27 @@ function toggleEventButton(button) {
         `;
     }
 }
+
+function toggleCheckButton(button) {
+    const svg = button.querySelector('svg');
+    const rect = svg.querySelector('rect');
+    const path = svg.querySelector('path');
+    
+    if (rect.getAttribute('fill') === 'white') {
+        rect.setAttribute('fill', '#4CAF50'); // Groene kleur
+        path.setAttribute('fill', 'white');
+    } else {
+        rect.setAttribute('fill', 'white');
+        path.setAttribute('fill', 'black');
+    }
+}
+
+// Event listeners toevoegen aan alle check-buttons
+document.addEventListener('DOMContentLoaded', function() {
+    const checkButtons = document.querySelectorAll('.check-button');
+    checkButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            toggleCheckButton(this);
+        });
+    });
+});
