@@ -24,7 +24,6 @@ body {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  margin-top: -5vh;
 }
 
 .buttons {
@@ -131,6 +130,37 @@ body {
   color: #FAFAF9;
 }
 
+.huiswerk-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+}
+
+.vak-icoon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.day ul {
+    margin-top: 10px;
+    padding-left: 20px;
+    list-style-type: none;
+}
+
+.day ul li {
+    margin-bottom: 5px;
+    font-family: 'Karla', sans-serif;
+}
+
+.vak-icoon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
 footer {
   text-align: center;
   margin-top: 10px;
@@ -159,7 +189,7 @@ footer {
 }
 
 .mascot {
-  max-height: 20vh;
+  max-height: 25vh;
 }
 
 
