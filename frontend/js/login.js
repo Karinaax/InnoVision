@@ -4,7 +4,7 @@ let code = "";
 
 function updateDisplay() {
     const display = document.getElementById('code-display');
-    display.textContent = code.padEnd(6, '_').split('').join(' ');
+    display.textContent = code.padEnd(4, '_').split('').join(' ');
 }
 
 function resetCode() {
@@ -17,25 +17,34 @@ function handleKeypadInput(value) {
         submitCode();
     } else if (value === '✕') {
         resetCode();
-    } else if (/^\d$/.test(value) && code.length < 6) {
+    } else if (/^\d$/.test(value) && code.length < 4) {
         code += value;
         updateDisplay();
     }
 }
 
 async function submitCode() {
-    if (code.length !== 6) {
-        alert("Voer een 6-cijferige code in.");
+    if (code.length !== 4) {
+        alert("Voer een 4-cijferige code in.");
         return;
     }
 
     const result = await loginMetCode(code);
 
-    console.log('Resultaat van login:', result);  // Debug log
+    console.log('Resultaat van login:', result); // Debug log
 
     if (result) {
         console.log("Login geslaagd:", result);
+
+        // Haal ouder_id uit het resultaat
+        const ouderId = result.id; // Controleer de exacte naam van de ID in je backend-respons
+
+        // Navigeer naar weekView.html met ouder_id in de URL
+    sessionStorage.setItem('ouder_id', ouderId);
+
+    console.log("Login geslaagd:", result);
         window.location.href = "weekView.html";
+
     } else {
         alert("Ongeldige code. Probeer opnieuw.");
         resetCode();

@@ -45,6 +45,36 @@ def login_met_logincode():
     except Exception as e:
         print(f"Exception bij login: {e}")
         return jsonify({"error": f"Serverfout: {str(e)}"}), 500
+    
+@app.route('/api/huiswerk', methods=['GET'])
+def haal_huiswerk_op_voor_ouder():
+    ouder_id = request.args.get("ouder_id")  # Haal ouder_id op uit de request
+
+    if not ouder_id:
+        return jsonify({"error": "Geen ouder ID meegegeven"}), 400
+
+    try:
+        conn = db_connect()  # Connectie met de database
+        if not conn:
+            return jsonify({"error": "Kan geen verbinding maken met database"}), 500
+
+        query = text("""
+            SELECT huiswerk.id, huiswerk.vakid, vak.naam AS vaknaam, vak.icoon, huiswerk.kindid, kind.voornaam AS kindnaam, huiswerk.resultaat, huiswerk.datumgekregen, huiswerk.datumafgevinkt, huiswerk.deadline, huiswerk.type
+            FROM huiswerk
+            JOIN vak ON huiswerk.vakid = vak.id
+            JOIN kind ON huiswerk.kindid = kind.id
+            WHERE kind.ouderid = :ouder_id
+        """)
+        huiswerk_data = conn.execute(query, {"ouder_id": ouder_id}).mappings().fetchall()
+        conn.close()
+
+        return jsonify([dict(row) for row in huiswerk_data])  # Huiswerkdata in JSON-formaat
+
+    except Exception as e:
+        print(f"Exception bij ophalen huiswerk: {e}")
+        return jsonify({"error": f"Serverfout: {str(e)}"}), 500
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

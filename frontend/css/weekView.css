@@ -15,17 +15,13 @@ body {
   justify-content: center;
   align-items: center;
   padding: 20px;
+  
 }
 
 .weekview {
   width: 100%;
-  height: 90%;
   max-width: 1200px;
-  max-height: 800px;
   padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 }
@@ -59,7 +55,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
 }
 
 .header h2 {
@@ -97,7 +92,7 @@ body {
   grid-template-columns: repeat(5, 1fr);
   gap: 15px;
   flex-grow: 0;
-  margin-top: -4vh;
+  margin-top: 1vh;
 }
 
 .day {
@@ -135,33 +130,35 @@ body {
   color: #FAFAF9;
 }
 
-.event {
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  color: #262626;
-  font-size: 0.9rem;
-  text-align: center;
-  font-weight: bold;
-  display: inline-block;
-  font-family: Kalam, sans-serif;
+.huiswerk-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
 }
 
-.event.math {
-  background-color: #FAFAF9;
-  border: 2px solid #262626;
+.vak-icoon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
 }
 
-.event.art {
-  background-color: #FAFAF9;
-  border: 2px solid #262626;
-
+.day ul {
+    margin-top: 10px;
+    padding-left: 20px;
+    list-style-type: none;
 }
 
-.event.general {
-  background-color: #FAFAF9;
-  border: 2px solid #262626;
+.day ul li {
+    margin-bottom: 5px;
+    font-family: 'Karla', sans-serif;
+}
 
+.vak-icoon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
 }
 
 footer {
@@ -179,6 +176,7 @@ footer {
   max-width: 80%;
   margin: 0 auto;
   gap: 12vw;
+  margin-top: 10vh;
 }
 
 .test {
@@ -186,12 +184,12 @@ footer {
   border-bottom: 3px dashed #262626;
   padding-bottom: 5px;
   margin-left: 15vw;
-  margin-top: -10vh;
+  margin-top: -25vh;
   width: 45vw;
 }
 
 .mascot {
-  max-height: 20vh;
+  max-height: 25vh;
 }
 
 

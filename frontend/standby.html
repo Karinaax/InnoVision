@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stand-by modus</title>
+    <title>Weekweergave</title>
     <link rel="stylesheet" href="css/weekView.css">
     <link rel="stylesheet" href="css/standby.css">
-    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Karla:wght@400;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Karla:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<body>
-    <div class="overlay"></div>
+    <div class="overlay" onclick="document.location='login.html'"></div>
     <div class="weekview">
+        <div class="buttons">
+        </div>
         <div class="header">
     <h2 id="monthTitle"></h2>
     <div class="navigation">
@@ -27,7 +27,7 @@
         
     <footer>
         <div class="footer-container">
-            <p class="test">Toetsen</p>
+            <p class="test">Toetsen in <span id="MonthTest">[maand]</span></p>
         </div>
     </footer>
 
