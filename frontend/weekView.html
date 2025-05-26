@@ -10,33 +10,26 @@
 <body>
     <div class="weekview">
         <div class="buttons">
-            <button class="circle blue"><img
-  src="https://api.dicebear.com/9.x/fun-emoji/svg?seed=Felix&scale=50&radius=50"
-  alt="avatar"
-/></button>
-            <button class="circle purple"><img
-  src="https://api.dicebear.com/9.x/fun-emoji/svg?seed=Aneka&scale=50&radius=50"
-  alt="avatar"
-/></button>
+        
         </div>
         <div class="header">
-    <h2 id="monthTitle"></h2>
-    <div class="navigation">
-        <button id="prevWeek">&lt;</button>
-        <span id="todayButton">Vandaag</span>
-        <button id="nextWeek">&gt;</button>
-    </div>
-</div>
-<div class="days" id="daysContainer">
-    <!-- De dagen worden hier dynamisch ingevuld door JavaScript -->
-</div>
-        
-    <footer>
-        <div class="footer-container">
-            <p class="test">Toetsen in <span id="MonthTest">[maand]</span></p>
-            <img class="mascot" src="./components/mascot/panda2.png" alt="panda">
+            <h2 id="monthTitle"></h2>
+            <div class="navigation">
+                <button id="prevWeek">&lt;</button>
+                <span id="todayButton">Vandaag</span>
+                <button id="nextWeek">&gt;</button>
+            </div>
         </div>
-    </footer>
+        <div class="days" id="daysContainer">
+            <!-- De dagen worden hier dynamisch ingevuld door JavaScript -->
+        </div>
+        
+        <footer>
+            <div class="footer-container">
+                <p class="test">Toetsen in <span id="MonthTest">[maand]</span></p>
+                <img class="mascot" src="./components/mascot/panda2.png" alt="panda">
+            </div>
+        </footer>
 
     </div>
     <script type="module" src="./js/weekview.js"></script>

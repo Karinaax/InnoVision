@@ -28,7 +28,7 @@ body {
 
 .buttons {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
   align-self: flex-start;
 }
@@ -92,7 +92,7 @@ body {
   grid-template-columns: repeat(5, 1fr);
   gap: 15px;
   flex-grow: 0;
-  margin-top: 1vh;
+  margin-top: 8vh;
 }
 
 .day {
@@ -138,20 +138,23 @@ body {
 }
 
 .vak-icoon {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
+   margin-left: 4vw;
 }
 
 .day ul {
-    margin-top: 10px;
-    padding-left: 20px;
-    list-style-type: none;
+     list-style-type: none;
+    padding: 0;
 }
 
 .day ul li {
-    margin-bottom: 5px;
-    font-family: 'Karla', sans-serif;
+  
+  display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .vak-icoon {
