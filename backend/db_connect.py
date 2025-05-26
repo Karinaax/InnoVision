@@ -19,8 +19,8 @@ def db_connect():
         print(f"Failed to connect: {e}")
         return "Failed to connect"
  
-=======
->>>>>>> 9a9d1c9091e718e965f7153019a148714ae07c4c
+# =======
+# >>>>>>> 9a9d1c9091e718e965f7153019a148714ae07c4c
 
 
 def db_connect():
