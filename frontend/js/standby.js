@@ -2,9 +2,9 @@ import { haalHuiswerkOp } from './api.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
     
-    sessionStorage.setItem(8320, ouderId);
+    sessionStorage.setItem('ouder_id', 15);
 
-    const ouderId = sessionStorage.getItem(8320);
+    const ouderId = sessionStorage.getItem('ouder_id');
 
 
     // Haal huiswerk op voor deze ouder
