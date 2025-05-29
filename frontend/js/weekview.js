@@ -106,11 +106,15 @@ async function updateWeekView() {
             }
 
             listItem.textContent = `${huiswerk.vaknaam}: ${huiswerk.type} (${huiswerk.kindnaam})`;
+
             huiswerkList.appendChild(listItem);
+            dayElement.appendChild(huiswerkList);
+            dayElement.appendChild(dayButton);
+
         });
 
-        dayElement.appendChild(huiswerkList);
-        dayElement.appendChild(dayButton);
+
+        
         daysContainer.appendChild(dayElement);
     }
 
