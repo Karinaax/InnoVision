@@ -62,6 +62,14 @@ async function updateWeekView() {
 
         const dayHeader = document.createElement("div");
         dayHeader.className = "day-header";
+        const dayButton = document.createElement("button");
+        dayButton.innerText = "Dag overview";
+        dayButton.className = "day-button";
+
+        dayButton.addEventListener("click", function () {
+            const dayId = dateFormatterParam(dayDate);
+            window.location=`dagview.html?dag=${dayId}`
+        })
 
         const dayName = document.createElement("span");
         const dayNames = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag"];
@@ -102,6 +110,7 @@ async function updateWeekView() {
         });
 
         dayElement.appendChild(huiswerkList);
+        dayElement.appendChild(dayButton);
         daysContainer.appendChild(dayElement);
     }
 
@@ -111,6 +120,12 @@ async function updateWeekView() {
 
 
 
+    function dateFormatterParam(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${day}${month}${year}`;
+    }
 
     function isSameDate(date1, date2) {
         return (
@@ -124,6 +139,8 @@ async function updateWeekView() {
         prevWeekButton.disabled = currentDate <= minDate;
         nextWeekButton.disabled = currentDate >= maxDate;
     }
+
+    
 
     prevWeekButton.addEventListener("click", function () {
         if (currentDate > minDate) {
