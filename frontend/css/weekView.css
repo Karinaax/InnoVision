@@ -69,11 +69,20 @@ body {
 }
 
 .general-avatar {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    border: 4px solid;
+    border-radius: 10%;
+    width: 7vw;
+    height: 5vh;
+    margin-top: 1.5vh;
+    border: 3px solid;
     box-sizing: border-box;
+}
+
+.Toon{
+  font-size: 14px;
+  font-weight:  bold;
+  color: #333;
+  text-align: center;
+  margin-top: -4.5vh;
 }
 
 .header {
@@ -217,8 +226,7 @@ body {
 footer {
   position: relative;
   width: 100%;
-    margin-top: 25vh;
-
+  margin-top: 25vh;
 }
 
 .footer-container {

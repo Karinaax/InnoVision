@@ -117,11 +117,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const allCircle = document.createElement("div");
         allCircle.className = "general-avatar";
-        allCircle.style.backgroundColor = '#a832a8';
         allCircle.style.borderColor = generalColor;
 
         const allSpan = document.createElement("span");
         allSpan.textContent = "Toon alles";
+        allSpan.className = "Toon";
+
 
         allButton.appendChild(allCircle);
         allButton.appendChild(allSpan);
