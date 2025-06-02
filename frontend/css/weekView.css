@@ -115,7 +115,6 @@ body {
   color: #262626;
 }
 
-
 .navigation button.disabled {
     color: #DC2626;
     cursor: not-allowed;
@@ -200,7 +199,6 @@ body {
     vertical-align: middle;
 }
 
-
 .huiswerk-color-bar {
     display:flex;
     width: 50px;
@@ -241,6 +239,13 @@ footer {
   box-sizing: border-box;
 }
 
+.mascot {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    max-height: 17vh;
+}
+
 .test-container {
   display: flex;
   flex-direction: column;
@@ -257,7 +262,6 @@ footer {
   font-weight: bold;
   font-size: 1.2rem;
 }
-
 
 .toets-datum {
     font-size: 18px;
@@ -287,13 +291,22 @@ footer {
     margin: auto;
 }
 
-.mascot {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  max-height: 20vh;
+.contact {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #f7fee7;
+    border: 2px #262626 solid ;
+    color: #262626;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: karla, bold;
 }
 
+.contact:hover {
+  background-color: #D9F99D;
+}
 
 @media (max-width: 768px) {
   .weekview {

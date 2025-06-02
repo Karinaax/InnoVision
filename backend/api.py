@@ -12,7 +12,7 @@ CORS(app)
 @app.route('/api/login', methods=['POST'])
 def login_met_logincode():
     data = request.get_json()
-    logincode = data.get("logincode") #Ontvangt data van frontend
+    logincode = data.get("logincode") # Ontvangt data van frontend
     print(f"Ontvangen logincode: '{logincode}' (type: {type(logincode)}, lengte: {len(str(logincode)) if logincode else 'None'})")
 
     if not logincode: 

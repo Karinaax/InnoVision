@@ -31,6 +31,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     const today = new Date();
     let currentDate = new Date(today);
 
+       const minDate = new Date(today);
+    minDate.setDate(today.getDate() - 7);
+
+    const maxDate = new Date(today);
+    maxDate.setDate(today.getDate() + 7);
+
     let allHuiswerk = [];
     let filteredKindId = null;
 
@@ -160,8 +166,16 @@ document.addEventListener("DOMContentLoaded", async function () {
             const dayElement = document.createElement("div");
             dayElement.className = "day";
 
-            const dayHeader = document.createElement("div");
-            dayHeader.className = "day-header";
+        const dayHeader = document.createElement("div");
+        dayHeader.className = "day-header";
+        const dayButton = document.createElement("button");
+        dayButton.innerText = "Dag overview";
+        dayButton.className = "day-button";
+
+        dayButton.addEventListener("click", function () {
+            const dayId = dateFormatterParam(dayDate);
+            window.location=`dagview.html?dag=${dayId}`
+        })
 
             const dayNames = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag"];
             const dayName = document.createElement("span");
@@ -216,12 +230,18 @@ document.addEventListener("DOMContentLoaded", async function () {
                 huiswerkText.appendChild(colorBar);
                 listItem.appendChild(huiswerkIconContainer);
 
+
                 huiswerkList.appendChild(listItem);
+            dayElement.appendChild(huiswerkList);
+            dayElement.appendChild(dayButton);
+
             });
 
             dayElement.appendChild(huiswerkList);
             daysContainer.appendChild(dayElement);
         }
+            updateButtonStates();
+
     }
 
     async function init() {
@@ -247,9 +267,58 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         renderButtons(kinderen);
         updateWeekView();
-        renderFooter(null); // Standaard weergave zonder toetsen
+        renderFooter(null);
     }
 
+        function dateFormatterParam(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${day}${month}${year}`;
+    }
+
+    function isSameDate(date1, date2) {
+        return (
+            date1.getFullYear() === date2.getFullYear() &&
+            date1.getMonth() === date2.getMonth() &&
+            date1.getDate() === date2.getDate()
+        );
+    }
+
+    function updateButtonStates() {
+    const isPrevDisabled = currentDate <= minDate;
+    const isNextDisabled = currentDate >= maxDate;
+
+    prevWeekButton.disabled = isPrevDisabled;
+    nextWeekButton.disabled = isNextDisabled;
+
+    if (isPrevDisabled) {
+        prevWeekButton.classList.add('disabled');
+    } else {
+        prevWeekButton.classList.remove('disabled');
+    }
+
+    if (isNextDisabled) {
+        nextWeekButton.classList.add('disabled');
+    } else {
+        nextWeekButton.classList.remove('disabled');
+    }
+}
+
+prevWeekButton.addEventListener("click", () => {
+    if (currentDate > minDate) {
+        currentDate.setDate(currentDate.getDate() - 7);
+        updateWeekView();
+    }
+});
+
+nextWeekButton.addEventListener("click", () => {
+    if (currentDate < maxDate) {
+        currentDate.setDate(currentDate.getDate() + 7);
+        updateWeekView();
+    }
+});
+    
     prevWeekButton.addEventListener("click", () => {
         currentDate.setDate(currentDate.getDate() - 7);
         updateWeekView();
