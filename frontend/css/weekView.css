@@ -28,8 +28,8 @@ body {
 
 .buttons {
     display: flex;
-    gap: 12px; /* afstand tussen de knoppen */
-    flex-wrap: wrap; /* optioneel, voor als er veel knoppen zijn */
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .child-button {
@@ -157,13 +157,16 @@ body {
 
 .huiswerk-item {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    margin: 5px 0;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
 }
 
-.vak-icoon {
-   margin-left: 4vw;
+.huiswerk-icon svg {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
 }
 
 .day ul {
@@ -172,7 +175,6 @@ body {
 }
 
 .day ul li {
-  
   display: flex;
     align-items: center;
     margin-bottom: 10px;
@@ -182,7 +184,7 @@ body {
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.vak-icoon {
+.vak-icoon .days {
     width: 20px;
     height: 20px;
     margin-right: 10px;
@@ -190,39 +192,99 @@ body {
 }
 
 
+.huiswerk-color-bar {
+    display:flex;
+    width: 50px;
+    height: 4px;
+    margin-top: 4px;
+    margin-bottom: -1vh;
+    align-self:flex-start;
+    background-color: transparent;
+    border-radius: 2px;
+}
+
+.exclamation-mark {
+    color: #BE185D;
+    font-family: 'Kalam', bold;
+    font-size: 24px;
+    margin-right: -3vw;
+}
+
+.check-mark {
+  margin-right: -3vw;
+}
 
 footer {
-  text-align: center;
-  margin-top: 10px;
-  font-size: 1.875rem;
-  color: #262626;
-  margin: 0 auto;
+  position: relative;
+  width: 100%;
+    margin-top: 25vh;
+
 }
 
 .footer-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  max-width: 80%;
-  margin: 0 auto;
-  gap: 12vw;
-  margin-top: 10vh;
+  padding: 10px 20px;
+  box-sizing: border-box;
 }
 
-.test {
-  margin: 0;
+.test-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.toetsen-header {
   border-bottom: 3px dashed #262626;
   padding-bottom: 5px;
-  margin-left: 15vw;
-  margin-top: -25vh;
-  width: 45vw;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+
+.toets-datum {
+    font-size: 18px;
+    font-weight: bold;
+    color: #262626;
+    border: 2px solid #DC2626;
+    border-radius: 10%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 5px;
+}
+
+.vak-icoon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+}
+
+.info-icoon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin: auto;
 }
 
 .mascot {
-  max-height: 25vh;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  max-height: 20vh;
 }
-
-
 
 
 @media (max-width: 768px) {

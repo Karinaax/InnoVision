@@ -1,4 +1,4 @@
-import { haalHuiswerkOp } from './api.js'; 
+import { haalHuiswerkOp } from './api.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
     const ouderId = sessionStorage.getItem('ouder_id');
@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const prevWeekButton = document.getElementById("prevWeek");
     const nextWeekButton = document.getElementById("nextWeek");
     const buttonsContainer = document.querySelector(".buttons");
+    const testContainer = document.querySelector(".test-container");
 
     const colors = ["#de362a", "#f5a122", "#ede72d", "#5aed2d", "#2ded8d", "#2d7ded"];
     const generalColor = "#7f32a8";
@@ -31,7 +32,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     let currentDate = new Date(today);
 
     let allHuiswerk = [];
-    let filteredKindId = null; // Specifiek kind filteren
+    let filteredKindId = null;
+
+    const kindIdToColor = new Map();
 
     function isSameDate(date1, date2) {
         return (
@@ -41,19 +44,57 @@ document.addEventListener("DOMContentLoaded", async function () {
         );
     }
 
+    function renderFooter(kindId) {
+        testContainer.innerHTML = "";
+
+        const toetsen = allHuiswerk.filter(huiswerk =>
+            huiswerk.kindid === kindId && huiswerk.type === "toets"
+        );
+
+
+        const header = document.createElement("p");
+        header.textContent = `Toetsen in ${today.toLocaleString('nl-NL', { month: 'long' })}`;
+        header.className = "toetsen-header";
+        testContainer.appendChild(header);
+
+        toetsen.forEach(toets => {
+            const toetsContainer = document.createElement("div");
+            toetsContainer.className = "tets-container";
+
+            const dateElement = document.createElement("span");
+            dateElement.className = "toets-datum";
+            const toetsDate = new Date(toets.deadline);
+            dateElement.textContent = toetsDate.getDate().toString().padStart(2, "0");
+            toetsContainer.appendChild(dateElement);
+
+            const vakIcon = document.createElement("div");
+            vakIcon.className = "vak-icoon";
+            vakIcon.innerHTML = toets.vakicoon || "<span>(Geen icoon)</span>";
+            toetsContainer.appendChild(vakIcon);
+
+            const infoIcon = document.createElement("img");
+            infoIcon.src = "./components/icons/info.svg";
+            infoIcon.alt = "Meer informatie";
+            infoIcon.className = "info-icoon";
+            toetsContainer.appendChild(infoIcon);
+            header.className = "toetsen-header";
+
+            testContainer.appendChild(toetsContainer);
+        });
+    }
+
     function renderButtons(kinderen) {
         buttonsContainer.innerHTML = "";
 
-        // Knoppen voor kinderen
-        kinderen.forEach((kind, index) => {
+        kinderen.forEach((kind) => {
             const button = document.createElement("button");
             button.className = "child-button";
 
             const img = document.createElement("img");
-            img.src = avatarUrl[index % avatarUrl.length];
+            img.src = avatarUrl[kindIdToColor.size % avatarUrl.length];
             img.alt = `Profielfoto van ${kind.kindnaam}`;
             img.className = "child-avatar";
-            img.style.borderColor = colors[index % colors.length];
+            img.style.borderColor = kindIdToColor.get(kind.kindid);
 
             const span = document.createElement("span");
             span.textContent = kind.kindnaam;
@@ -64,12 +105,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             button.addEventListener("click", () => {
                 filteredKindId = kind.kindid;
                 updateWeekView();
+                renderFooter(filteredKindId);
             });
 
             buttonsContainer.appendChild(button);
         });
 
-            // "Toon alles" knop
         const allButton = document.createElement("button");
         allButton.className = "child-button";
         allButton.style.borderColor = generalColor;
@@ -88,6 +129,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         allButton.addEventListener("click", () => {
             filteredKindId = null;
             updateWeekView();
+            renderFooter(null);
         });
 
         buttonsContainer.appendChild(allButton);
@@ -97,7 +139,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         daysContainer.innerHTML = "";
 
         const startOfWeek = new Date(currentDate);
-        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + 1); // maandag
+        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + 1);
 
         const huiswerkData = filteredKindId
             ? allHuiswerk.filter(huiswerk => huiswerk.kindid === filteredKindId)
@@ -136,14 +178,43 @@ document.addEventListener("DOMContentLoaded", async function () {
             dayElement.appendChild(dayHeader);
 
             const huiswerkVoorDeDag = huiswerkData.filter(huiswerk =>
-                isSameDate(new Date(huiswerk.deadline), dayDate) ||
-                isSameDate(new Date(huiswerk.datumgekregen), dayDate)
+                isSameDate(new Date(huiswerk.deadline), dayDate)
             );
 
             const huiswerkList = document.createElement("ul");
             huiswerkVoorDeDag.forEach(huiswerk => {
                 const listItem = document.createElement("li");
-                listItem.textContent = `${huiswerk.vaknaam}(${huiswerk.kindnaam})`;
+                listItem.className = "huiswerk-item";
+
+                if (huiswerk.type === "toets") {
+                    const exclamationMark = document.createElement("span");
+                    exclamationMark.textContent = "!";
+                    exclamationMark.className = "exclamation-mark";
+                    listItem.appendChild(exclamationMark);
+                }
+
+                if (huiswerk.datumafgevinkt !== null) {
+                    const checkMark = document.createElement("img");
+                    checkMark.src = "./components/icons/check.svg";
+                    checkMark.className = "check-mark";
+                    listItem.appendChild(checkMark);
+                }
+
+                const huiswerkText = document.createElement("div");
+                huiswerkText.textContent = huiswerk.vaknaam;
+
+                const huiswerkIconContainer = document.createElement("div");
+                huiswerkIconContainer.className = "huiswerk-icon";
+                huiswerkIconContainer.innerHTML = huiswerk.vakicoon;
+
+                const colorBar = document.createElement("span");
+                colorBar.className = "huiswerk-color-bar";
+                colorBar.style.backgroundColor = kindIdToColor.get(huiswerk.kindid) || generalColor;
+
+                listItem.appendChild(huiswerkText);
+                huiswerkText.appendChild(colorBar);
+                listItem.appendChild(huiswerkIconContainer);
+
                 huiswerkList.appendChild(listItem);
             });
 
@@ -169,8 +240,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const kinderen = Array.from(kinderenMap.values()).sort((a, b) => a.kindid - b.kindid);
 
+        kinderen.forEach((kind, index) => {
+            kindIdToColor.set(kind.kindid, colors[index % colors.length]);
+        });
+
         renderButtons(kinderen);
         updateWeekView();
+        renderFooter(null); // Standaard weergave zonder toetsen
     }
 
     prevWeekButton.addEventListener("click", () => {
