@@ -30,7 +30,7 @@ async function submitCode() {
     }
 
     const result = await loginMetCode(code);
-
+    console.log(result);
     console.log('Resultaat van login:', result); // Debug log
 
     if (result) {
@@ -61,5 +61,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.getElementById('confirm-btn').addEventListener('click', submitCode);
+    // document.getElementById('confirm-btn').addEventListener('click', submitCode);
 });
