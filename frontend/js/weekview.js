@@ -71,6 +71,16 @@ document.addEventListener("DOMContentLoaded", async function () {
             vakIcon.className = "vak-icoon";
             vakIcon.innerHTML = toets.vakicoon || "<span>(Geen icoon)</span>";
             toetsContainer.appendChild(vakIcon);
+        const dayHeader = document.createElement("div");
+        dayHeader.className = "day-header";
+        const dayButton = document.createElement("button");
+        dayButton.innerText = "Dag overview";
+        dayButton.className = "day-button";
+
+        dayButton.addEventListener("click", function () {
+            const dayId = dateFormatterParam(dayDate);
+            window.location=`dagview.html?dag=${dayId}`
+        })
 
             const infoIcon = document.createElement("img");
             infoIcon.src = "./components/icons/info.svg";
@@ -114,6 +124,18 @@ document.addEventListener("DOMContentLoaded", async function () {
         const allButton = document.createElement("button");
         allButton.className = "child-button";
         allButton.style.borderColor = generalColor;
+            listItem.textContent = `${huiswerk.vaknaam}: ${huiswerk.type} (${huiswerk.kindnaam})`;
+
+            huiswerkList.appendChild(listItem);
+            dayElement.appendChild(huiswerkList);
+            dayElement.appendChild(dayButton);
+
+        });
+
+
+        
+        daysContainer.appendChild(dayElement);
+    }
 
         const allCircle = document.createElement("div");
         allCircle.className = "general-avatar";
@@ -126,6 +148,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         allButton.appendChild(allCircle);
         allButton.appendChild(allSpan);
+    function dateFormatterParam(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${day}${month}${year}`;
+    }
 
         allButton.addEventListener("click", () => {
             filteredKindId = null;
@@ -230,6 +258,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (!allHuiswerk || allHuiswerk.length === 0) {
             daysContainer.textContent = "Geen huiswerk gevonden.";
             return;
+    
+
+    prevWeekButton.addEventListener("click", function () {
+        if (currentDate > minDate) {
+            currentDate.setDate(currentDate.getDate() - 7);
+            updateWeekView();
         }
 
         const kinderenMap = new Map();
