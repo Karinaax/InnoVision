@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   font-family: karla, sans-serif;
   background-color: #f9fafc;
@@ -15,7 +16,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: 20px;
-  
 }
 
 .weekview {
@@ -33,22 +33,21 @@ body {
   align-self: flex-start;
 }
 
-
 .circle {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
 }
 
 .circle.blue {
-      border: 3.5px solid #1A7BF2;
+  border: 3.5px solid #1a7bf2;
 }
 
 .circle.purple {
-      border: 3.5px solid #A64DF4;
+  border: 3.5px solid #a64df4;
 }
 
 .header {
@@ -81,10 +80,9 @@ body {
   color: #262626;
 }
 
-
 .navigation button.disabled {
-    color: #DC2626;
-    cursor: not-allowed;
+  color: #dc2626;
+  cursor: not-allowed;
 }
 
 .days {
@@ -99,7 +97,7 @@ body {
   border: 3px solid #262626;
   border-radius: 10px;
   padding: 10px;
-  background-color: #FAFAF9;
+  background-color: #fafaf9;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -126,44 +124,57 @@ body {
 }
 
 .date.today {
-  background-color: #DC2626; 
-  color: #FAFAF9;
+  background-color: #dc2626;
+  color: #fafaf9;
 }
 
 .huiswerk-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 5px 0;
 }
 
 .vak-icoon {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
 }
 
 .day ul {
-    margin-top: 10px;
-    padding-left: 20px;
-    list-style-type: none;
+  margin-top: 10px;
+  padding-left: 20px;
+  list-style-type: none;
 }
 
 .day ul li {
-    margin-bottom: 5px;
-    font-family: 'Karla', sans-serif;
+  margin-bottom: 5px;
+  font-family: "Karla", sans-serif;
 }
 
 .vak-icoon {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+button.day-button {
+  padding: 16px 20px;
+  border: 3px solid #262626;
+  border-radius: 8px;
+  background-color: #f7fee7;
+  transition: .5s ease-in;
+  cursor: pointer;
+}
+
+button.day-button:hover {
+  background-color: #D9F99D;
 }
 
 footer {
   text-align: center;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   font-size: 1.875rem;
   color: #262626;
   margin: 0 auto;
@@ -171,64 +182,68 @@ footer {
 
 .footer-container {
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: center;
+  flex-direction: row;
   max-width: 80%;
   margin: 0 auto;
   gap: 12vw;
-  margin-top: 10vh;
+  margin-top: 5vh;
 }
 
-.test {
+.toets {
   margin: 0;
   border-bottom: 3px dashed #262626;
   padding-bottom: 5px;
-  margin-left: 15vw;
-  margin-top: -25vh;
-  width: 45vw;
+  width: 30vw;
+}
+
+.toets-label {
+  font-size: 16px;
 }
 
 .mascot {
+  position: absolute;
+  left: 15%;
+  bottom: 2%;
   max-height: 25vh;
 }
 
-
-
-
 @media (max-width: 768px) {
   .weekview {
-      padding: 15px;
+    padding: 15px;
   }
 
   .header h2 {
-      font-size: 1.5rem;
+    font-size: 1.5rem;
   }
 
   .days {
-      grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .circle {
-      width: 30px;
-      height: 30px;
+    width: 30px;
+    height: 30px;
   }
 }
 
 @media (max-width: 480px) {
   .weekview {
-      padding: 10px;
+    padding: 10px;
   }
 
   .header h2 {
-      font-size: 1.2rem;
+    font-size: 1.2rem;
   }
 
   .days {
-      grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .circle {
-      width: 25px;
-      height: 25px;
+    width: 25px;
+    height: 25px;
   }
 }
