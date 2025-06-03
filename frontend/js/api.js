@@ -1,6 +1,6 @@
 export async function loginMetCode(logincode) {
     try {
-        const response = await fetch('http://localhost:5000/api/login', {
+        const response = await fetch('http://127.0.0.1:5000/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ logincode })
@@ -22,9 +22,13 @@ export async function loginMetCode(logincode) {
     }
 }
 
-export async function haalHuiswerkOp(ouderId) {
+export async function haalHuiswerkOp(ouderId, datum = null) {
     try {
-        const response = await fetch(`http://localhost:5000/api/huiswerk?ouder_id=${ouderId}`, {
+        const url = datum 
+            ? `http://127.0.0.1:5000/api/huiswerk?ouder_id=${ouderId}&datum=${datum}`
+            : `http://127.0.0.1:5000/api/huiswerk?ouder_id=${ouderId}`;
+            
+        const response = await fetch(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         });
@@ -37,7 +41,7 @@ export async function haalHuiswerkOp(ouderId) {
             return null;
         }
 
-        return data; // Huiswerkdata als JSON-object
+        return data;
     } catch (err) {
         console.error("Netwerkfout:", err);
         return null;

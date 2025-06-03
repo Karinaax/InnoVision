@@ -269,6 +269,9 @@ document.addEventListener("DOMContentLoaded", async function () {
             kindIdToColor.set(kind.kindid, colors[index % colors.length]);
         });
 
+        // Sla de kleurtoewijzing op in sessionStorage
+        sessionStorage.setItem('kind_colors', JSON.stringify(Array.from(kindIdToColor.entries())));
+
         renderButtons(kinderen);
         updateWeekView();
         renderFooter(null);
