@@ -1,7 +1,8 @@
-import { haalHuiswerkOp } from './api.js';
+import {haalHuiswerkOp } from './api.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
     const ouderId = sessionStorage.getItem('ouder_id');
+
 
     if (!ouderId) {
         alert("Ouder ID niet gevonden. Log opnieuw in.");
@@ -110,9 +111,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             button.addEventListener("click", () => {
                 filteredKindId = kind.kindid;
+                sessionStorage.setItem('active_kind_id', filteredKindId);
                 updateWeekView();
                 renderFooter(filteredKindId);
             });
+
 
             buttonsContainer.appendChild(button);
         });
@@ -129,15 +132,16 @@ document.addEventListener("DOMContentLoaded", async function () {
         allSpan.textContent = "Toon alles";
         allSpan.className = "Toon";
 
-
         allButton.appendChild(allCircle);
         allButton.appendChild(allSpan);
 
         allButton.addEventListener("click", () => {
             filteredKindId = null;
+            sessionStorage.removeItem('active_kind_id');
             updateWeekView();
             renderFooter(null);
         });
+
 
         buttonsContainer.appendChild(allButton);
     }

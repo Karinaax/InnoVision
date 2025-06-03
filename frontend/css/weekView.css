@@ -230,11 +230,11 @@ body {
     color: #BE185D;
     font-family: 'Kalam', bold;
     font-size: 24px;
-    margin-right: -3vw;
-}
+    padding: auto;
+  }
 
 .check-mark {
-  margin-right: -3vw;
+      padding: auto;
 }
 
 footer {
@@ -307,7 +307,7 @@ footer {
     margin: auto;
 }
 
-.contact {
+#contact {
     position: absolute;
     bottom: 0;
     right: 0;
