@@ -1,71 +1,115 @@
-document.addEventListener("DOMContentLoaded", function () {
+import { haalHuiswerkOp } from './api.js';
+
+document.addEventListener("DOMContentLoaded", async function () {
+    
+    sessionStorage.setItem('ouder_id', 15);
+
+    const ouderId = sessionStorage.getItem('ouder_id');
+
+
+    // Haal huiswerk op voor deze ouder
+    const huiswerkData = await haalHuiswerkOp(ouderId);
+    console.log("Ontvangen huiswerkdata:", huiswerkData);
+});
+
+document.addEventListener("DOMContentLoaded", async function () {
     const daysContainer = document.getElementById("daysContainer");
     const monthTitle = document.getElementById("monthTitle");
     const monthTest = document.getElementById("MonthTest");
     const prevWeekButton = document.getElementById("prevWeek");
     const nextWeekButton = document.getElementById("nextWeek");
 
-    // Startdatum (huidige datum)
     const today = new Date();
     let currentDate = new Date(today);
 
-    // Bereken de grenzen: begin en einde van toegestane periode
     const minDate = new Date(today);
     minDate.setDate(today.getDate() - 7);
 
     const maxDate = new Date(today);
     maxDate.setDate(today.getDate() + 7);
 
-    // Functie om de weekweergave te updaten
-    function updateWeekView() {
-        daysContainer.innerHTML = ""; // Maak de container leeg
+    // Ingelogde ouder ID (voor demo hardcoded; vervang door echte inlog-logica)
+    const ouderId = 1; // Haal dit uit de login-flow
 
-        // Bereken de start van de week (maandag)
-        const startOfWeek = new Date(currentDate);
-        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + 1);
+async function updateWeekView() {
+    daysContainer.innerHTML = ""; // Maak de container leeg
 
-        // Update de maand en het jaar in de header
-        const monthNames = [
-            "Januari", "Februari", "Maart", "April", "Mei", "Juni",
-            "Juli", "Augustus", "September", "Oktober", "November", "December"
-        ];
-        monthTitle.textContent = `${monthNames[startOfWeek.getMonth()].toLowerCase()} ${startOfWeek.getFullYear()}`;
-        monthTest.textContent = `${monthNames[startOfWeek.getMonth()].toLowerCase()}`;
+    // Bereken de start van de week (maandag)
+    const startOfWeek = new Date(currentDate);
+    startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + 1);
 
-        // Voeg de dagen toe
-        for (let i = 0; i < 5; i++) {
-            const dayDate = new Date(startOfWeek);
-            dayDate.setDate(startOfWeek.getDate() + i);
+    // Haal huiswerkdata op (zorg dat de ouder_id is meegegeven!)
+    const ouderId = sessionStorage.getItem('ouder_id'); // Of haal het uit de URL-parameters
+    const huiswerkData = await haalHuiswerkOp(ouderId);
 
-            const dayElement = document.createElement("div");
-            dayElement.className = "day";
+    // Update de maand en het jaar in de header
+    const monthNames = [
+        "Januari", "Februari", "Maart", "April", "Mei", "Juni",
+        "Juli", "Augustus", "September", "Oktober", "November", "December"
+    ];
+    monthTitle.textContent = `${monthNames[startOfWeek.getMonth()].toLowerCase()} ${startOfWeek.getFullYear()}`;
+    monthTest.textContent = `${monthNames[startOfWeek.getMonth()].toLowerCase()}`;
 
-            const dayHeader = document.createElement("div");
-            dayHeader.className = "day-header";
+    // Voeg de dagen toe
+    for (let i = 0; i < 5; i++) {
+        const dayDate = new Date(startOfWeek);
+        dayDate.setDate(startOfWeek.getDate() + i);
 
-            const dayName = document.createElement("span");
-            const dayNames = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag"];
-            dayName.textContent = dayNames[i];
+        const dayElement = document.createElement("div");
+        dayElement.className = "day";
 
-            const dateSpan = document.createElement("span");
-            dateSpan.className = "date";
-            if (isSameDate(dayDate, today)) {
-                dateSpan.classList.add("today"); // Markeer de huidige dag
-            }
-            dateSpan.textContent = dayDate.getDate().toString().padStart(2, "0");
+        const dayHeader = document.createElement("div");
+        dayHeader.className = "day-header";
 
-            dayHeader.appendChild(dayName);
-            dayHeader.appendChild(dateSpan);
-            dayElement.appendChild(dayHeader);
+        const dayName = document.createElement("span");
+        const dayNames = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag"];
+        dayName.textContent = dayNames[i];
 
-            daysContainer.appendChild(dayElement);
+        const dateSpan = document.createElement("span");
+        dateSpan.className = "date";
+        if (isSameDate(dayDate, today)) {
+            dateSpan.classList.add("today"); // Markeer de huidige dag
         }
+        dateSpan.textContent = dayDate.getDate().toString().padStart(2, "0");
 
-        // Update de knoppenstatus
-        updateButtonStates();
+        dayHeader.appendChild(dayName);
+        dayHeader.appendChild(dateSpan);
+        dayElement.appendChild(dayHeader);
+
+        // Voeg huiswerkdata toe aan de dag
+        const huiswerkVoorDeDag = huiswerkData.filter(huiswerk =>
+            isSameDate(new Date(huiswerk.deadline), dayDate) || // Controleer deadline
+            isSameDate(new Date(huiswerk.datumgekregen), dayDate) // Controleer datumgekregen
+        );
+
+        const huiswerkList = document.createElement("ul");
+        huiswerkVoorDeDag.forEach(huiswerk => {
+            const listItem = document.createElement("li");
+
+            // Voeg een icoon toe als er een vakicoon is
+            if (huiswerk.vak_icoon) {
+                const iconImg = document.createElement("img");
+                iconImg.src = huiswerk.vak_icoon;
+                iconImg.alt = huiswerk.vaknaam;
+                iconImg.className = "vak-icoon";
+                listItem.appendChild(iconImg);
+            }
+
+            listItem.textContent = `${huiswerk.vaknaam}: ${huiswerk.type} (${huiswerk.kindnaam})`;
+            huiswerkList.appendChild(listItem);
+        });
+
+        dayElement.appendChild(huiswerkList);
+        daysContainer.appendChild(dayElement);
     }
 
-    // Helperfunctie om te controleren of twee datums gelijk zijn
+    // Update de knoppenstatus
+    updateButtonStates();
+}
+
+
+
+
     function isSameDate(date1, date2) {
         return (
             date1.getFullYear() === date2.getFullYear() &&
@@ -74,26 +118,11 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
-    // Functie om de status van de knoppen te updaten
     function updateButtonStates() {
-        if (currentDate <= minDate) {
-            prevWeekButton.disabled = true;
-            prevWeekButton.classList.add("disabled");
-        } else {
-            prevWeekButton.disabled = false;
-            prevWeekButton.classList.remove("disabled");
-        }
-
-        if (currentDate >= maxDate) {
-            nextWeekButton.disabled = true;
-            nextWeekButton.classList.add("disabled");
-        } else {
-            nextWeekButton.disabled = false;
-            nextWeekButton.classList.remove("disabled");
-        }
+        prevWeekButton.disabled = currentDate <= minDate;
+        nextWeekButton.disabled = currentDate >= maxDate;
     }
 
-    // Eventlisteners voor de navigatieknoppen
     prevWeekButton.addEventListener("click", function () {
         if (currentDate > minDate) {
             currentDate.setDate(currentDate.getDate() - 7);
@@ -108,6 +137,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Initialiseer de weergave
-    updateWeekView();
+    await updateWeekView();
 });

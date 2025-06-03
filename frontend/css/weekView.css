@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   font-family: karla, sans-serif;
   background-color: #f9fafc;
@@ -15,7 +16,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: 20px;
-  
 }
 
 .weekview {
@@ -27,12 +27,62 @@ body {
 }
 
 .buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-self: flex-start;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
+.child-button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.general-button {
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.child-button span {
+    font-size: 14px;
+    font-weight:  bold;
+    color: #333;
+    text-align: center;
+}
+
+.child-avatar {
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 4px solid transparent;
+    width: 50px;
+    height: 50px;
+}
+
+.general-avatar {
+    border-radius: 10%;
+    width: 7vw;
+    height: 5vh;
+    margin-top: 1.5vh;
+    border: 3px solid;
+    box-sizing: border-box;
+}
+
+.Toon{
+  font-size: 14px;
+  font-weight:  bold;
+  color: #333;
+  text-align: center;
+  margin-top: -4.5vh;
 
 .circle {
   width: 50px;
@@ -40,15 +90,15 @@ body {
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
 }
 
 .circle.blue {
-      border: 3.5px solid #1A7BF2;
+  border: 3.5px solid #1a7bf2;
 }
 
 .circle.purple {
-      border: 3.5px solid #A64DF4;
+  border: 3.5px solid #a64df4;
 }
 
 .header {
@@ -61,7 +111,7 @@ body {
   font-size: 1.8rem;
   margin: 0;
   margin-left: 10vw;
-  color: #333;
+  color: #262626;
 }
 
 .navigation {
@@ -81,10 +131,9 @@ body {
   color: #262626;
 }
 
-
 .navigation button.disabled {
-    color: #DC2626;
-    cursor: not-allowed;
+  color: #dc2626;
+  cursor: not-allowed;
 }
 
 .days {
@@ -92,14 +141,14 @@ body {
   grid-template-columns: repeat(5, 1fr);
   gap: 15px;
   flex-grow: 0;
-  margin-top: 1vh;
+  margin-top: 8vh;
 }
 
 .day {
   border: 3px solid #262626;
   border-radius: 10px;
   padding: 10px;
-  background-color: #FAFAF9;
+  background-color: #fafaf9;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -126,109 +175,250 @@ body {
 }
 
 .date.today {
-  background-color: #DC2626; 
-  color: #FAFAF9;
+  background-color: #dc2626;
+  color: #fafaf9;
 }
 
 .huiswerk-item {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    margin: 5px 0;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
 }
 
-.vak-icoon {
+.huiswerk-icon svg {
     width: 24px;
     height: 24px;
-    border-radius: 50%;
+    margin-left: 10px;
 }
 
 .day ul {
-    margin-top: 10px;
-    padding-left: 20px;
-    list-style-type: none;
+  list-style-type: none;
+  padding: 0;
 }
 
 .day ul li {
-    margin-bottom: 5px;
-    font-family: 'Karla', sans-serif;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vak-icoon .days {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 5px 0;
 }
 
 .vak-icoon {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    vertical-align: middle;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.day ul {
+  margin-top: 10px;
+  padding-left: 20px;
+  list-style-type: none;
+}
+
+.day ul li {
+  margin-bottom: 5px;
+  font-family: "Karla", sans-serif;
+}
+
+.vak-icoon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+button.day-button {
+  padding: 16px 20px;
+  border: 3px solid #262626;
+  border-radius: 8px;
+  background-color: #f7fee7;
+  transition: .5s ease-in;
+  cursor: pointer;
+}
+
+button.day-button:hover {
+  background-color: #D9F99D;
+}
+
+
+.huiswerk-color-bar {
+    display:flex;
+    width: 50px;
+    height: 4px;
+    margin-top: 4px;
+    margin-bottom: -1vh;
+    align-self:flex-start;
+    background-color: transparent;
+    border-radius: 2px;
+}
+
+.exclamation-mark {
+    color: #BE185D;
+    font-family: 'Kalam', bold;
+    font-size: 24px;
+    margin-right: -3vw;
+}
+
+.check-mark {
+  margin-right: -3vw;
 }
 
 footer {
+  position: relative;
+  width: 100%;
+  margin-top: 25vh;
   text-align: center;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   font-size: 1.875rem;
   color: #262626;
   margin: 0 auto;
 }
 
 .footer-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  max-width: 80%;
-  margin: 0 auto;
-  gap: 12vw;
-  margin-top: 10vh;
+  padding: 10px 20px;
+  box-sizing: border-box;
 }
 
-.test {
-  margin: 0;
+.test-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.toetsen-header {
   border-bottom: 3px dashed #262626;
   padding-bottom: 5px;
-  margin-left: 15vw;
-  margin-top: -25vh;
-  width: 45vw;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+
+.toets-datum {
+    font-size: 18px;
+    font-weight: bold;
+    color: #262626;
+    border: 2px solid #DC2626;
+    border-radius: 10%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 5px;
+}
+
+.vak-icoon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+}
+
+.info-icoon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin: auto;
 }
 
 .mascot {
-  max-height: 25vh;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  max-height: 20vh;
 }
 
 
+/*   position: relative;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  max-width: 80%;
+  margin: 0 auto;
+  gap: 12vw;
+  margin-top: 5vh;
+}
+ */
+.toets {
+  margin: 0;
+  border-bottom: 3px dashed #262626;
+  padding-bottom: 5px;
+  width: 30vw;
+}
 
+.toets-label {
+  font-size: 16px;
+}
+
+.mascot {
+  position: absolute;
+  left: 15%;
+  bottom: 2%;
+  max-height: 25vh;
+}
 
 @media (max-width: 768px) {
   .weekview {
-      padding: 15px;
+    padding: 15px;
   }
 
   .header h2 {
-      font-size: 1.5rem;
+    font-size: 1.5rem;
   }
 
   .days {
-      grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .circle {
-      width: 30px;
-      height: 30px;
+    width: 30px;
+    height: 30px;
   }
 }
 
 @media (max-width: 480px) {
   .weekview {
-      padding: 10px;
+    padding: 10px;
   }
 
   .header h2 {
-      font-size: 1.2rem;
+    font-size: 1.2rem;
   }
 
   .days {
-      grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .circle {
-      width: 25px;
-      height: 25px;
+    width: 25px;
+    height: 25px;
   }
+}
 }

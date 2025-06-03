@@ -5,7 +5,7 @@ body{
 
 .weekview{
     background-color: transparent;
-    filter: blur(4px);
+    filter: blur(1px);
 }
 
 .overlay {
@@ -24,4 +24,5 @@ body{
   padding-bottom: 5px;
   width: 45vw;
 }
+
 

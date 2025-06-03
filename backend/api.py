@@ -59,7 +59,7 @@ def haal_huiswerk_op_voor_ouder():
             return jsonify({"error": "Kan geen verbinding maken met database"}), 500
 
         query = text("""
-            SELECT huiswerk.id, huiswerk.vakid, vak.naam AS vaknaam, vak.icoon, huiswerk.kindid, kind.voornaam AS kindnaam, huiswerk.resultaat, huiswerk.datumgekregen, huiswerk.datumafgevinkt, huiswerk.deadline, huiswerk.type
+            SELECT huiswerk.id, huiswerk.vakid, vak.naam AS vaknaam, vak.icoon AS vakicoon, huiswerk.kindid, kind.voornaam AS kindnaam, huiswerk.resultaat, huiswerk.datumgekregen, huiswerk.datumafgevinkt, huiswerk.deadline, huiswerk.type
             FROM huiswerk
             JOIN vak ON huiswerk.vakid = vak.id
             JOIN kind ON huiswerk.kindid = kind.id
