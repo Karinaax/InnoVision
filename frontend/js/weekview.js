@@ -1,8 +1,8 @@
-import {haalHuiswerkOp } from './api.js';
+import { haalHuiswerkOp } from './api.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
+        // Haal ouder ID op en controleer op geldigheid
     const ouderId = sessionStorage.getItem('ouder_id');
-
 
     if (!ouderId) {
         alert("Ouder ID niet gevonden. Log opnieuw in.");
@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         return;
     }
 
+        // Elementen ophalen uit de DOM
     const daysContainer = document.getElementById("daysContainer");
     const monthTitle = document.getElementById("monthTitle");
     const monthTest = document.getElementById("MonthTest");
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const buttonsContainer = document.querySelector(".buttons");
     const testContainer = document.querySelector(".test-container");
 
+        // Kleuren en avatars voor de kinder knoppen
     const colors = ["#de362a", "#f5a122", "#ede72d", "#5aed2d", "#2ded8d", "#2d7ded"];
     const generalColor = "#7f32a8";
     const avatarUrl = [
@@ -31,18 +33,27 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const today = new Date();
     let currentDate = new Date(today);
-
-       const minDate = new Date(today);
+        
+    // Definieer minimum en maximum data voor navigatie
+    const minDate = new Date(today);
     minDate.setDate(today.getDate() - 7);
 
     const maxDate = new Date(today);
     maxDate.setDate(today.getDate() + 7);
 
     let allHuiswerk = [];
-    let filteredKindId = null;
+
+    // Hier halen we de actieve kindid op uit sessionStorage (als die er is)
+    let filteredKindId = sessionStorage.getItem('active_kind_id');
+    if (filteredKindId !== null) {
+        filteredKindId = Number(filteredKindId);
+    } else {
+        filteredKindId = null;
+    }
 
     const kindIdToColor = new Map();
 
+        // Controleer of twee datums hetzelfde zijn
     function isSameDate(date1, date2) {
         return (
             date1.getFullYear() === date2.getFullYear() &&
@@ -51,57 +62,72 @@ document.addEventListener("DOMContentLoaded", async function () {
         );
     }
 
-    function renderFooter(kindId) {
-        testContainer.innerHTML = "";
+// Rendert toetsen in de footer
+function renderFooter(kindId) {
+    testContainer.innerHTML = "";
 
-        const toetsen = allHuiswerk.filter(huiswerk =>
-            huiswerk.kindid === kindId && huiswerk.type === "toets"
-        );
+            // Filter toetsen voor het geselecteerde kind
+    const toetsen = allHuiswerk.filter(huiswerk =>
+        huiswerk.kindid === kindId && huiswerk.type === "toets"
+    );
 
+    // Header toevoegen
+    const header = document.createElement("p");
+    header.textContent = `Toetsen in ${today.toLocaleString('nl-NL', { month: 'long' })}`;
+    header.className = "toetsen-header";
+    testContainer.appendChild(header);
 
-        const header = document.createElement("p");
-        header.textContent = `Toetsen in ${today.toLocaleString('nl-NL', { month: 'long' })}`;
-        header.className = "toetsen-header";
-        testContainer.appendChild(header);
+    // Hoofdcontainer voor toetsen
+    const toetsContainer = document.createElement("div");
+    toetsContainer.className = "toets-container";
+    testContainer.appendChild(toetsContainer);
 
-        toetsen.forEach(toets => {
-            const toetsContainer = document.createElement("div");
-            toetsContainer.className = "tets-container";
+    toetsen.forEach(toets => {
+        // Container voor een enkele toets
+        const toetsItem = document.createElement("div");
+        toetsItem.className = "toets-item";
 
-            const dateElement = document.createElement("span");
-            dateElement.className = "toets-datum";
-            const toetsDate = new Date(toets.deadline);
-            dateElement.textContent = toetsDate.getDate().toString().padStart(2, "0");
-            toetsContainer.appendChild(dateElement);
+        // Datum
+        const dateElement = document.createElement("span");
+        dateElement.className = "toets-datum";
+        const toetsDate = new Date(toets.deadline);
+        dateElement.textContent = toetsDate.getDate().toString().padStart(2, "0");
+        toetsItem.appendChild(dateElement);
 
-            const vakIcon = document.createElement("div");
-            vakIcon.className = "vak-icoon";
-            vakIcon.innerHTML = toets.vakicoon || "<span>(Geen icoon)</span>";
-            toetsContainer.appendChild(vakIcon);
+        // Vak-icoon
+        const vakIcon = document.createElement("div");
+        vakIcon.className = "vak-icoon";
+        vakIcon.innerHTML = toets.vakicoon; // Zorg dat toets.vakicoon valide HTML/SVG bevat
+        toetsItem.appendChild(vakIcon);
 
-            const infoIcon = document.createElement("img");
-            infoIcon.src = "./components/icons/info.svg";
-            infoIcon.alt = "Meer informatie";
-            infoIcon.className = "info-icoon";
-            toetsContainer.appendChild(infoIcon);
-            header.className = "toetsen-header";
+        // Info-icoon
+        const infoIcon = document.createElement("img");
+        infoIcon.src = "./components/icons/info.svg";
+        infoIcon.alt = "Meer informatie";
+        infoIcon.className = "info-icoon";
+        toetsItem.appendChild(infoIcon);
 
-            testContainer.appendChild(toetsContainer);
-        });
-    }
+        // Voeg toets-item toe aan de toets-container
+        toetsContainer.appendChild(toetsItem);
+    });
+}
 
+    // Rendert knoppen voor kinderen
     function renderButtons(kinderen) {
         buttonsContainer.innerHTML = "";
 
-        kinderen.forEach((kind) => {
+        kinderen.forEach((kind, index) => {
             const button = document.createElement("button");
             button.className = "child-button";
 
             const img = document.createElement("img");
-            img.src = avatarUrl[kindIdToColor.size % avatarUrl.length];
+            img.src = avatarUrl[index % avatarUrl.length];
             img.alt = `Profielfoto van ${kind.kindnaam}`;
             img.className = "child-avatar";
-            img.style.borderColor = kindIdToColor.get(kind.kindid);
+
+            img.style.border = `4px solid ${colors[index % colors.length]}`;
+            img.style.borderRadius = "50%";
+            img.style.boxSizing = "border-box";
 
             const span = document.createElement("span");
             span.textContent = kind.kindnaam;
@@ -109,13 +135,13 @@ document.addEventListener("DOMContentLoaded", async function () {
             button.appendChild(img);
             button.appendChild(span);
 
+            //kindid opslaan in sessie
             button.addEventListener("click", () => {
                 filteredKindId = kind.kindid;
                 sessionStorage.setItem('active_kind_id', filteredKindId);
                 updateWeekView();
                 renderFooter(filteredKindId);
             });
-
 
             buttonsContainer.appendChild(button);
         });
@@ -135,6 +161,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         allButton.appendChild(allCircle);
         allButton.appendChild(allSpan);
 
+        //kindid verwijderen uit sessie als je in algemene weergave zit
         allButton.addEventListener("click", () => {
             filteredKindId = null;
             sessionStorage.removeItem('active_kind_id');
@@ -142,10 +169,10 @@ document.addEventListener("DOMContentLoaded", async function () {
             renderFooter(null);
         });
 
-
         buttonsContainer.appendChild(allButton);
     }
 
+        // Update de weergave van de week
     async function updateWeekView() {
         daysContainer.innerHTML = "";
 
@@ -173,7 +200,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const dayHeader = document.createElement("div");
         dayHeader.className = "day-header";
         const dayButton = document.createElement("button");
-        dayButton.innerText = "Dag overview";
+        dayButton.innerText = "Dag overzicht";
         dayButton.className = "day-button";
 
         dayButton.addEventListener("click", function () {
@@ -201,6 +228,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             );
 
             const huiswerkList = document.createElement("ul");
+            huiswerkList.className = "huiswerk-list";
             huiswerkVoorDeDag.forEach(huiswerk => {
                 const listItem = document.createElement("li");
                 listItem.className = "huiswerk-item";
@@ -241,13 +269,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             });
 
-            dayElement.appendChild(huiswerkList);
             daysContainer.appendChild(dayElement);
         }
             updateButtonStates();
 
     }
 
+    // Initialiseert de applicatie
     async function init() {
         allHuiswerk = await haalHuiswerkOp(ouderId);
 
@@ -271,66 +299,48 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         renderButtons(kinderen);
         updateWeekView();
-        renderFooter(null);
+        renderFooter(filteredKindId);
     }
 
-        function dateFormatterParam(date) {
+    function dateFormatterParam(date) {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
         const day = String(date.getDate()).padStart(2, '0');
         return `${day}${month}${year}`;
     }
 
-    function isSameDate(date1, date2) {
-        return (
-            date1.getFullYear() === date2.getFullYear() &&
-            date1.getMonth() === date2.getMonth() &&
-            date1.getDate() === date2.getDate()
-        );
-    }
-
     function updateButtonStates() {
-    const isPrevDisabled = currentDate <= minDate;
-    const isNextDisabled = currentDate >= maxDate;
+        const isPrevDisabled = currentDate <= minDate;
+        const isNextDisabled = currentDate >= maxDate;
 
-    prevWeekButton.disabled = isPrevDisabled;
-    nextWeekButton.disabled = isNextDisabled;
+        prevWeekButton.disabled = isPrevDisabled;
+        nextWeekButton.disabled = isNextDisabled;
 
-    if (isPrevDisabled) {
-        prevWeekButton.classList.add('disabled');
-    } else {
-        prevWeekButton.classList.remove('disabled');
+        if (isPrevDisabled) {
+            prevWeekButton.classList.add('disabled');
+        } else {
+            prevWeekButton.classList.remove('disabled');
+        }
+
+        if (isNextDisabled) {
+            nextWeekButton.classList.add('disabled');
+        } else {
+            nextWeekButton.classList.remove('disabled');
+        }
     }
 
-    if (isNextDisabled) {
-        nextWeekButton.classList.add('disabled');
-    } else {
-        nextWeekButton.classList.remove('disabled');
-    }
-}
-
-prevWeekButton.addEventListener("click", () => {
-    if (currentDate > minDate) {
-        currentDate.setDate(currentDate.getDate() - 7);
-        updateWeekView();
-    }
-});
-
-nextWeekButton.addEventListener("click", () => {
-    if (currentDate < maxDate) {
-        currentDate.setDate(currentDate.getDate() + 7);
-        updateWeekView();
-    }
-});
-    
     prevWeekButton.addEventListener("click", () => {
-        currentDate.setDate(currentDate.getDate() - 7);
-        updateWeekView();
+        if (currentDate > minDate) {
+            currentDate.setDate(currentDate.getDate() - 7);
+            updateWeekView();
+        }
     });
 
     nextWeekButton.addEventListener("click", () => {
-        currentDate.setDate(currentDate.getDate() + 7);
-        updateWeekView();
+        if (currentDate < maxDate) {
+            currentDate.setDate(currentDate.getDate() + 7);
+            updateWeekView();
+        }
     });
 
     await init();
