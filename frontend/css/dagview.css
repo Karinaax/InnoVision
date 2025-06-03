@@ -13,6 +13,7 @@
   background: white;
   border: 1px solid #ccc;
   border-radius: 15px;
+  overflow: hidden;
 }
 
 .day-header {
@@ -54,6 +55,16 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 10px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Verberg scrollbar voor Chrome, Safari en Opera */
+.events::-webkit-scrollbar {
+  display: none;
 }
 
 .event-container {
@@ -64,10 +75,24 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.exclamation-mark {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #ff0000;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
 .event-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     margin-bottom: 10px;
 }
 
@@ -95,6 +120,20 @@
     color: white;
 }
 
+.check-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.check-button:disabled svg rect {
+    fill: #e0e0e0 !important;
+    stroke: #999 !important;
+}
+
+.check-button:disabled svg path {
+    fill: #999 !important;
+}
+
 .kind-naam {
     margin-top: 10px;
     font-size: 0.9em;
@@ -114,6 +153,7 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  width: 100%;
 }
 
 .event-title {
@@ -138,18 +178,70 @@
   display: flex;
   position: relative;
   width: 100%;
-  padding-left: 10%;
+  padding-left: 2%;
   gap: 50%;
-  justify-content: center;
 }
 
 .huiswerk-status {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 10px;
+  width: 100%;
 }
 
 .huiswerk-beschrijving-text {
   font-size: 12px;
+}
+
+.event-container.toets .huiswerk-beschrijving-text {
+    width: 50%;
+}
+
+.dag-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.dag-naam {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.datum {
+    font-size: 1em;
+    color: #666;
+}
+
+.huiswerk-color-bar {
+  width: 100%;
+  height: 4px;
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+.kind-naam {
+  text-align: center;
+  font-weight: 100;
+}
+
+.event-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.event-info h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.dag-view-toets-mark {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
 }
