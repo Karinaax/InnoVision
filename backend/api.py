@@ -73,8 +73,37 @@ def haal_huiswerk_op_voor_ouder():
     except Exception as e:
         print(f"Exception bij ophalen huiswerk: {e}")
         return jsonify({"error": f"Serverfout: {str(e)}"}), 500
+@app.route('/api/docent', methods=['GET'])
+def haal_docent_op():
+    kind_id = request.args.get("kind_id")  # Gebruik kind_id als parameter
 
+    if not kind_id:
+        return jsonify({"error": "Geen kind ID meegegeven"}), 400
 
+    try:
+        conn = db_connect()  # Connectie met de database
+        if not conn:
+            return jsonify({"error": "Kan geen verbinding maken met database"}), 500
+
+        # Query om de juiste docent op te halen via de klas van het kind
+        query = text("""
+            SELECT docent.id, docent.klasid, docent.voornaam, docent.achternaam, docent.geslacht
+            FROM docent
+            JOIN klas ON docent.klasid = klas.klasid
+            JOIN kind ON klas.klasid = kind.klasid
+            WHERE kind.id = :kind_id
+        """)
+        docent_data = conn.execute(query, {"kind_id": kind_id}).mappings().fetchall()
+        conn.close()
+
+        if not docent_data:
+            return jsonify({"error": "Geen docent gevonden voor het gegeven kind ID"}), 404
+
+        return jsonify([dict(row) for row in docent_data])  # Docentdata in JSON-formaat
+
+    except Exception as e:
+        print(f"Exception bij ophalen docent: {e}")
+        return jsonify({"error": f"Serverfout: {str(e)}"}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

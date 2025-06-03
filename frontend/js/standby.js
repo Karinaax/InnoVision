@@ -42,6 +42,8 @@ async function updateWeekView() {
     const ouderId = sessionStorage.getItem('ouder_id'); // Of haal het uit de URL-parameters
     const huiswerkData = await haalHuiswerkOp(ouderId);
 
+    const kindIdToColor = new Map();
+
     // Update de maand en het jaar in de header
     const monthNames = [
         "Januari", "Februari", "Maart", "April", "Mei", "Juni",
@@ -65,50 +67,68 @@ async function updateWeekView() {
         const dayNames = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag"];
         dayName.textContent = dayNames[i];
 
-        const dateSpan = document.createElement("span");
-        dateSpan.className = "date";
-        if (isSameDate(dayDate, today)) {
-            dateSpan.classList.add("today"); // Markeer de huidige dag
-        }
-        dateSpan.textContent = dayDate.getDate().toString().padStart(2, "0");
-
-        dayHeader.appendChild(dayName);
-        dayHeader.appendChild(dateSpan);
-        dayElement.appendChild(dayHeader);
-
-        // Voeg huiswerkdata toe aan de dag
-        const huiswerkVoorDeDag = huiswerkData.filter(huiswerk =>
-            isSameDate(new Date(huiswerk.deadline), dayDate) || // Controleer deadline
-            isSameDate(new Date(huiswerk.datumgekregen), dayDate) // Controleer datumgekregen
-        );
-
-        const huiswerkList = document.createElement("ul");
-        huiswerkVoorDeDag.forEach(huiswerk => {
-            const listItem = document.createElement("li");
-
-            // Voeg een icoon toe als er een vakicoon is
-            if (huiswerk.vak_icoon) {
-                const iconImg = document.createElement("img");
-                iconImg.src = huiswerk.vak_icoon;
-                iconImg.alt = huiswerk.vaknaam;
-                iconImg.className = "vak-icoon";
-                listItem.appendChild(iconImg);
+const dateSpan = document.createElement("span");
+            dateSpan.className = "date";
+            if (isSameDate(dayDate, today)) {
+                dateSpan.classList.add("today");
             }
+            dateSpan.textContent = dayDate.getDate().toString().padStart(2, "0");
 
-            listItem.textContent = `${huiswerk.vaknaam}: ${huiswerk.type} (${huiswerk.kindnaam})`;
-            huiswerkList.appendChild(listItem);
-        });
+            dayHeader.appendChild(dayName);
+            dayHeader.appendChild(dateSpan);
+            dayElement.appendChild(dayHeader);
 
-        dayElement.appendChild(huiswerkList);
-        daysContainer.appendChild(dayElement);
+            const huiswerkVoorDeDag = huiswerkData.filter(huiswerk =>
+                isSameDate(new Date(huiswerk.deadline), dayDate)
+            );
+
+            const huiswerkList = document.createElement("ul");
+            huiswerkVoorDeDag.forEach(huiswerk => {
+                const listItem = document.createElement("li");
+                listItem.className = "huiswerk-item";
+
+                if (huiswerk.type === "toets") {
+                    const exclamationMark = document.createElement("span");
+                    exclamationMark.textContent = "!";
+                    exclamationMark.className = "exclamation-mark";
+                    listItem.appendChild(exclamationMark);
+                }
+
+                if (huiswerk.datumafgevinkt !== null) {
+                    const checkMark = document.createElement("img");
+                    checkMark.src = "./components/icons/check.svg";
+                    checkMark.className = "check-mark";
+                    listItem.appendChild(checkMark);
+                }
+
+                const huiswerkText = document.createElement("div");
+                huiswerkText.textContent = huiswerk.vaknaam;
+
+                const huiswerkIconContainer = document.createElement("div");
+                huiswerkIconContainer.className = "huiswerk-icon";
+                huiswerkIconContainer.innerHTML = huiswerk.vakicoon;
+
+                
+                const colorBar = document.createElement("span");
+                colorBar.className = "huiswerk-color-bar";
+                colorBar.style.backgroundColor = kindIdToColor.get(huiswerk.kindid);
+
+                listItem.appendChild(huiswerkText);
+                huiswerkText.appendChild(colorBar);
+                listItem.appendChild(huiswerkIconContainer);
+
+
+                huiswerkList.appendChild(listItem);
+            dayElement.appendChild(huiswerkList);
+
+            });
+
+            dayElement.appendChild(huiswerkList);
+            daysContainer.appendChild(dayElement);
+        }
+            updateButtonStates();
+
     }
-
-    // Update de knoppenstatus
-    updateButtonStates();
-}
-
-
-
 
     function isSameDate(date1, date2) {
         return (
