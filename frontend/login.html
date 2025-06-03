@@ -5,38 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kalender in zicht</title>
   <link rel="stylesheet" href="css/login.css" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Karla:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Karla:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
+  <!-- Achtergrond met kalender -->
   <div class="calendar-background">
     <div class="calendar">
       <header>
         <button class="bg-blue-500 text-white px-3 py-1 rounded">Vandaag</button>
-        <div
-          class="calendar__title"
-          style="display: flex; justify-content: center; align-items: center"
-        >
-          <h1 style="flex: 1"><strong>12 MEI – 16 MEI</strong> 2025</h1>
+        <div class="calendar__title" style="display: flex; justify-content: center; align-items: center">
+          <h1 style="flex: 1"><strong>02 JUNE – 06 JUNE</strong> 2025</h1>
           <div class="icon secondary chevron_left">›</div>
         </div>
       </header>
     </div>
   </div>
 
+  <!-- Login overlay -->
   <div class="login-overlay">
     <div class="login-container">
       <div class="login-left">
-        <h2 class="text-xl font-bold mb-4">Inloggen</h2>
-
-        <!-- 6-cijferige code display -->
-        <div id="code-display" class="dots">_ _ _ _ _ _</div>
-        <!-- <button id="confirm-btn" class="confirm-btn">✔ bevestigen</button> -->
+        <div id="code-display" class="dots" data-i18n="codePlaceholder">_ _ _ _</div>
+        <div class="panda-wave">
+          <img src="components/mascot/Zwaaiende_Panda.png" alt="Zwaaiende panda" />
+        </div>
       </div>
-
-      <!-- Keypad knoppen -->
       <div id="keypad" class="keypad">
         <button class="key">1</button>
         <button class="key">2</button>
@@ -47,13 +40,29 @@
         <button class="key">7</button>
         <button class="key">8</button>
         <button class="key">9</button>
-        <button class="key">✕</button>
+        <button class="key cancel">←</button>
         <button class="key">0</button>
-        <button class="key">✓</button>
+        <button class="key confirm" data-i18n="submit">✓</button>
       </div>
     </div>
   </div>
+  <!-- Foutmelding -->
+  <div id="error-popup" class="popup-overlay">
+    <div class="popup-box">
+      <p>Probeer opnieuw.</p>
+      <button id="popup-ok">Okey</button>
+    </div>
+  </div>
 
+  <!-- Instellingenpaneel -->
+  <div id="settings-container"></div>
+
+  <!-- Scripts -->
   <script type="module" src="./js/login.js"></script>
+  <script type="module">
+  import { loadSettingsPanel } from './js/settings.js';
+  loadSettingsPanel();
+  
+</script>
 </body>
 </html>

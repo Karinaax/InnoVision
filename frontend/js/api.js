@@ -44,3 +44,25 @@ export async function haalHuiswerkOp(ouderId) {
     }
 }
 
+export async function haalDocentOp(kind_id) {
+    try {
+        const response = await fetch(`http://localhost:5000/api/docent?kind_id=${kind_id}`, {
+            method: 'GET',
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error("Fout bij het ophalen van docent:", data.error);
+            return null;
+        }
+
+        return data;
+    } catch (err) {
+        console.error("Netwerkfout:", err);
+        return null;
+    }
+}
+
+
+
