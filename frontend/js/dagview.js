@@ -25,40 +25,51 @@ function createEventContainer(huiswerk) {
     const container = document.createElement('div');
     container.className = 'event-container';
     container.innerHTML = `
-        <div class="event-header">
-            <h3>${huiswerk.naam}</h3>
-            <button class="check-button ${huiswerk.status === 'Gemaakt' ? 'checked' : ''}">
-                ${huiswerk.status === 'Gemaakt' ? '✓' : '○'}
-            </button>
+        <div class="event">
+            ${huiswerk.vakicoon}
+            <div class="event-content">
+                <h3>${huiswerk.vaknaam}</h3>
+                <div class="extra-uitleg">
+                    <img class="extra-uitleg-icon" src="./components/icons/info.svg" alt="info">
+                    <p>Uitlegvideo over huiswerk</p>
+                </div>
+            </div>
         </div>
-        <p>${huiswerk.beschrijving}</p>
-        <p class="kind-naam">${huiswerk.kind_naam}</p>
+        <div class="lower-event-container">
+            <div class="huiswerk-beschrijving">
+                <h4>Het Huiswerk:</h4>
+                <p class="huiswerk-beschrijving-text">${huiswerk.beschrijving}</p>
+            </div>
+            <div class="huiswerk-status">
+                <h4>Huiswerk gemaakt</h4>
+                <button class="check-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="49" height="50" viewBox="0 0 49 50" fill="none">
+                    <rect x="2" y="2.76465" width="45" height="45" rx="10" fill="white" stroke="black" stroke-width="4"/>
+                    <path d="M20.2282 34.5372L10.8179 26.1245C10.2526 25.619 10.2526 24.7995 10.8179 24.2941L12.8653 22.4637C13.4306 21.9582 14.3473 21.9582 14.9127 22.4637L21.2519 28.1309L34.8297 15.9923C35.3951 15.4869 36.3118 15.4869 36.8771 15.9923L38.9245 17.8227C39.4898 18.3281 39.4898 19.1476 38.9245 19.6531L22.2756 34.5373C21.7102 35.0427 20.7935 35.0427 20.2282 34.5372Z" fill="black"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
     `;
 
-    // Event listener toevoegen voor de check button
+    // Event listener voor de popup
+    const extraUitleg = container.querySelector('.extra-uitleg');
+    extraUitleg.addEventListener('click', () => {
+        const content = `
+            <h2>${huiswerk.vaknaam}</h2>
+            <p><strong>Video uitleg:</strong></p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/h8j6CT4LVQo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+        `;
+        openModal(content);
+    });
+
+    // Event listener voor de check-button
     const checkButton = container.querySelector('.check-button');
-    checkButton.addEventListener('click', () => updateHuiswerkStatus(huiswerk.id));
+    checkButton.addEventListener('click', function() {
+        toggleCheckButton(this);
+    });
 
     return container;
-}
-
-// Functie om de huiswerk status bij te werken
-async function updateHuiswerkStatus(huiswerkId) {
-    try {
-        const response = await fetch(`/api/huiswerk/${huiswerkId}/status`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        
-        if (response.ok) {
-            // Ververs de pagina om de nieuwe status te tonen
-            loadHuiswerk();
-        }
-    } catch (error) {
-        console.error('Fout bij updaten huiswerk status:', error);
-    }
 }
 
 // Functie om alle huiswerk te laden
@@ -69,8 +80,7 @@ async function loadHuiswerk() {
         return;
     }
     
-    eventsContainer.innerHTML = ''; // Leeg de container eerst
-    console.log('Events container geleegd'); // Debug log
+
 
     const huiswerkData = await getHuiswerkData();
     console.log('Aantal huiswerk items:', huiswerkData.length); // Debug log
