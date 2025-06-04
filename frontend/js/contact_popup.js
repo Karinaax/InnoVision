@@ -1,15 +1,18 @@
 import {haalDocentOp } from './api.js';
 
 function openModal(contentHtml) {
-    document.getElementById("modalText").innerHTML = contentHtml;
-    document.getElementById("myModal").style.display = "block";
+  document.getElementById("modalText").innerHTML = contentHtml;
+  document.getElementById("myModal").style.display = "block";
+  document.body.classList.add("modal-active"); // Voeg toe
 }
 
 
 
 function closeModal() {
-    document.getElementById("myModal").style.display = "none";
+  document.getElementById("myModal").style.display = "none";
+  document.body.classList.remove("modal-active"); // Verwijder class
 }
+
 
 // Maak de functie beschikbaar op de globale scope
 window.closeModal = closeModal;

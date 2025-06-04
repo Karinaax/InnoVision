@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kalender in zicht</title>
   <link rel="stylesheet" href="css/login.css" />
+  <link rel="stylesheet" href="css/settings.css" />
   <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Karla:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -12,7 +13,6 @@
   <div class="calendar-background">
     <div class="calendar">
       <header>
-        <button class="bg-blue-500 text-white px-3 py-1 rounded">Vandaag</button>
         <div class="calendar__title" style="display: flex; justify-content: center; align-items: center">
           <h1 style="flex: 1"><strong>02 JUNE – 06 JUNE</strong> 2025</h1>
           <div class="icon secondary chevron_left">›</div>
@@ -46,6 +46,7 @@
       </div>
     </div>
   </div>
+
   <!-- Foutmelding -->
   <div id="error-popup" class="popup-overlay">
     <div class="popup-box">
@@ -54,15 +55,14 @@
     </div>
   </div>
 
-  <!-- Instellingenpaneel -->
+  <!-- ✅ Instellingen -->
   <div id="settings-container"></div>
 
   <!-- Scripts -->
   <script type="module" src="./js/login.js"></script>
   <script type="module">
-  import { loadSettingsPanel } from './js/settings.js';
-  loadSettingsPanel();
-  
-</script>
+    import { loadSettingsPanel } from './js/settings.js';
+    loadSettingsPanel();
+  </script>
 </body>
 </html>
