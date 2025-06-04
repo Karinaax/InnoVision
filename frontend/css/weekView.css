@@ -42,11 +42,15 @@ body {
   gap: 6px;
 }
 
-.child-button span, .Toon {
+.child-button span {
   font-size: 14px;
   font-weight: bold;
   color: #333;
   text-align: center;
+}
+
+.Toon{
+  margin-top: -4.5vh;
 }
 
 .child-avatar {
@@ -109,7 +113,7 @@ body {
   grid-template-columns: repeat(5, 1fr);
   gap: 15px;
   flex-grow: 0;
-  margin-top: 8vh;
+  margin-top: 4vh;
 }
 
 .day {
