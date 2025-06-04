@@ -24,9 +24,7 @@ events.forEach(function (el) {
     
     // ✅ HIER bepaal je wat er in de popup komt te staan
     const content = `
-        <h2>[naam vak]</h2>
-        <p><strong>Video uitleg:</strong></p>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/h8j6CT4LVQo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+       
     `;
     
     openModal(content);
@@ -34,24 +32,24 @@ events.forEach(function (el) {
 });
 });
 
-function toggleEventButton(button) {
-    button.classList.toggle('active');
+// function toggleEventButton(button) {
+//     button.classList.toggle('active');
     
-    const mascot = document.querySelector('.mascot');
-    if (button.classList.contains('active')) {
-        // Verander de mascot naar video
-        mascot.outerHTML = `
-            <video class="mascot" autoplay loop muted>
-                <source src="./components/mascot/pandaWave.mp4" type="video/mp4">
-            </video>
-        `;
-    } else {
-        // Verander terug naar de originele afbeelding
-        mascot.outerHTML = `
-            <img class="mascot" src="./components/mascot/kai.png">
-        `;
-    }
-}
+//     const mascot = document.querySelector('.mascot');
+//     if (button.classList.contains('active')) {
+//         // Verander de mascot naar video
+//         mascot.outerHTML = `
+//             <video class="mascot" autoplay loop muted>
+//                 <source src="./components/mascot/pandaWave.mp4" type="video/mp4">
+//             </video>
+//         `;
+//     } else {
+//         // Verander terug naar de originele afbeelding
+//         mascot.outerHTML = `
+//             <img class="mascot" src="./components/mascot/kai.png">
+//         `;
+//     }
+// }
 
 function toggleCheckButton(button) {
     const svg = button.querySelector('svg');
