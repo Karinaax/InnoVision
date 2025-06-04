@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Weekweergave</title>
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="./css/weekView.css" />
-  <link rel="stylesheet" href="./css/settings.css" />
-  <link rel="stylesheet" href="./css/popup.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Karla:wght@400;700&display=swap" rel="stylesheet" />
-
-  <!-- Scripts -->
-  <script type="module" src="./js/contact_popup.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekweergave</title>
+    <link rel="stylesheet" href="./css/weekView.css">
+    <link rel="stylesheet" href="./css/popup.css"/>
+    <link rel="stylesheet" href="./css/settings.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Karla:wght@400;700&display=swap" rel="stylesheet">
+    <script type="module" src="./js/contact_popup.js"></script>
 </head>
 <body>
   <!-- Modal popup -->
@@ -23,24 +19,22 @@
     </div>
   </div>
 
-  <!-- Weekoverzicht container -->
-  <div class="weekview">
-    <div id="settings-container" class="settings-fixed-container"></div>
-
-    <div class="buttons">
-      <!-- Kindknoppen worden hier geladen via JS -->
-    </div>
-
-    <div class="header">
-      <h2 id="monthTitle"></h2>
-      <div class="navigation">
-        <button id="prevWeek">&lt;</button>
-        <span id="todayButton">Deze week</span>
-        <button id="nextWeek">&gt;</button>
-      </div>
-    </div>
-
-    <div class="days" id="daysContainer"></div>
+    <div class="weekview">
+      <div id="settings-container" class="settings-fixed-container"></div>
+        <div class="buttons">
+            <!-- Hier moeten de knoppen komen voor het kiezen van een kind-->
+        </div>
+        <div class="header">
+            <h2 id="monthTitle"></h2>
+            <div class="navigation">
+                <button id="prevWeek">&lt;</button>
+                <span id="todayButton"><!--Hier moet de week staan--></span>
+                <button id="nextWeek">&gt;</button>
+            </div>
+        </div>
+        <div class="days" id="daysContainer">
+            <!-- De dagen worden hier dynamisch ingevuld door JavaScript -->
+        </div>
 
     <footer>
       <div class="footer-container">
@@ -48,16 +42,17 @@
         <div class="test-container">
           <p class="test">Toetsen in <span id="MonthTest">[maand]</span></p>
         </div>
-        <button id="contact" class="event">Contact</button>
-      </div>
-    </footer>
-  </div>
+        <button id="contact" class="event" ><img src="./components/icons/Telefoon.svg" class="phone"/>Contact    
+        </button>
+    </div>
+</footer>
 
-  <!-- JS voor inhoud en instellingen -->
-  <script type="module" src="./js/weekview.js"></script>
-  <script type="module">
-    import { loadSettingsPanel } from './js/settings.js';
-    loadSettingsPanel();
-  </script>
+
+    </div>
+    <script type="module" src="./js/weekview.js"></script>
+    <script type="module">
+      import { loadSettingsPanel } from './js/settings.js';
+      loadSettingsPanel();
+    </script>
 </body>
 </html>

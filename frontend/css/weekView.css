@@ -95,6 +95,10 @@ body {
   color: #262626;
 }
 
+#todayButton{
+  font-size: 1rem;
+}
+
 .navigation button.disabled {
   color: #DC2626;
   cursor: not-allowed;
@@ -104,6 +108,7 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 15px;
+  flex-grow: 0;
   margin-top: 8vh;
 }
 
@@ -115,7 +120,9 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 35vh;
+  position: relative;
+  min-height: 35vh;
+  max-height: 60vh;
 }
 
 .day-header {
@@ -313,6 +320,11 @@ footer {
   background-color: #D9F99D;
   transition: .5s ease-in;
 }
+.phone{
+  height:2vh;
+  margin-right: 0.5vw;
+  margin-top: 0.3vh;
+}
 
 
 .contrast-dark .weekview,
@@ -385,6 +397,12 @@ footer {
     font-size: 1.2rem;
   }
   .days {
-    grid-template-columns: repeat(1, 1fr);
+      grid-template-columns: repeat(1, 1fr);
+  }
+
+  .circle {
+      width: 25px;
+      height: 25px;
   }
 }
+

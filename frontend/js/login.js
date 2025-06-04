@@ -37,6 +37,7 @@ async function submitCode() {
   if (result) {
     const ouderId = result.id;
     sessionStorage.setItem('ouder_id', ouderId);
+    sessionStorage.removeItem('active_kind_id');
     window.location.href = "weekView.html";
   } else {
     showErrorPopup();
