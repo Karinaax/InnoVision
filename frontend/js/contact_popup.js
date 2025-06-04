@@ -3,16 +3,13 @@ import {haalDocentOp } from './api.js';
 function openModal(contentHtml) {
   document.getElementById("modalText").innerHTML = contentHtml;
   document.getElementById("myModal").style.display = "block";
-  document.body.classList.add("modal-active"); // Voeg toe
+  document.body.classList.add("contact-modal-active"); // Alleen contact-modal-active class
 }
-
-
 
 function closeModal() {
   document.getElementById("myModal").style.display = "none";
-  document.body.classList.remove("modal-active"); // Verwijder class
+  document.body.classList.remove("contact-modal-active"); // Alleen contact-modal-active class verwijderen
 }
-
 
 // Maak de functie beschikbaar op de globale scope
 window.closeModal = closeModal;
@@ -22,6 +19,7 @@ window.onclick = function(event) {
     const modal = document.getElementById("myModal");
     if (event.target == modal) {
         modal.style.display = "none";
+        document.body.classList.remove("contact-modal-active"); // Verwijder de class wanneer modal wordt gesloten
     }
 };
 
