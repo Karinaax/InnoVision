@@ -1,6 +1,18 @@
-/* === Verankerde positie BINNEN .weekview container === */
 .weekview {
   position: relative;
+}
+
+.instellingen {
+  position: absolute;
+  top: 33.5px;
+  right: 125px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+.instellingen img {
+  width: 100%;
+  height: auto;
 }
 
 #settings-container {
@@ -31,13 +43,14 @@ body.modal-active #settings-container {
   justify-content: center;
   gap: 12px;
   cursor: pointer;
-  font-family: 'Karla', sans-serif;
+  font-family: Karla, bold;
 }
 
 .settings-label-text {
   font-size: 14px;
   font-weight: bold;
   color: black;
+  margin-left: 15px;
 }
 
 /* === Instellingenpaneel === */
@@ -63,7 +76,7 @@ body.modal-active #settings-container {
   font-size: 14px;
   border-radius: 6px;
   cursor: pointer;
-  font-family: 'Karla', sans-serif;
+  font-family: Karla, bold;
   border: 1px solid #ccc;
   background-color: #ffffff;
   color: #000000;
