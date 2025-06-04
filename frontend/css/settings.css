@@ -27,6 +27,12 @@ body.modal-active #settings-container {
   display: none !important;
 }
 
+/* Maak settings knop niet-klikbaar tijdens contact modal */
+body.contact-modal-active #settings-container {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 /* === Instellingenknop en icoon === */
 .settings-icon-container {
   position: relative;
