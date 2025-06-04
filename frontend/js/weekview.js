@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const testContainer = document.querySelector(".test-container");
 
         // Kleuren en avatars voor de kinder knoppen
-    const colors = ["#de362a", "#f5a122", "#ede72d", "#5aed2d", "#2ded8d", "#2d7ded"];
+    const colors = ["#de362a", "#f5a122", "#dede16", "#44c21d", "#2ded8d", "#2d7ded"];
     const generalColor = "#7f32a8";
     const avatarUrl = [
         "https://api.dicebear.com/9.x/fun-emoji/svg?seed=Nia&scale=50&radius=50",
@@ -173,6 +173,37 @@ function renderFooter(kindId) {
     }
 
         // Update de weergave van de week
+function getWeekLabel(currentDate, today) {
+    const startOfThisWeek = new Date(today);
+    startOfThisWeek.setDate(today.getDate() - today.getDay() + 1);
+
+    const startOfNextWeek = new Date(startOfThisWeek);
+    startOfNextWeek.setDate(startOfThisWeek.getDate() + 7);
+
+    const startOfPreviousWeek = new Date(startOfThisWeek);
+    startOfPreviousWeek.setDate(startOfThisWeek.getDate() - 7);
+
+    if (
+        currentDate >= startOfThisWeek &&
+        currentDate < startOfNextWeek
+    ) {
+        return "deze week";
+    } else if (
+        currentDate >= startOfNextWeek &&
+        currentDate < startOfNextWeek.setDate(startOfNextWeek.getDate() + 7)
+    ) {
+        return "volgende week";
+    } else if (
+        currentDate >= startOfPreviousWeek &&
+        currentDate < startOfThisWeek
+    ) {
+        return "vorige week";
+    }
+
+    return "";
+}
+
+        // Update de weergave van de week
     async function updateWeekView() {
         daysContainer.innerHTML = "";
 
@@ -189,6 +220,11 @@ function renderFooter(kindId) {
         ];
         monthTitle.textContent = `${monthNames[startOfWeek.getMonth()].toLowerCase()} ${startOfWeek.getFullYear()}`;
         monthTest.textContent = `${monthNames[startOfWeek.getMonth()].toLowerCase()}`;
+
+           // Stel de tekst in voor todayButton
+    const todayButton = document.getElementById("todayButton");
+    todayButton.textContent = getWeekLabel(currentDate, today)
+
 
         for (let i = 0; i < 5; i++) {
             const dayDate = new Date(startOfWeek);

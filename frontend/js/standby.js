@@ -83,6 +83,7 @@ const dateSpan = document.createElement("span");
             );
 
             const huiswerkList = document.createElement("ul");
+            huiswerkList.className = "huiswerk-list";
             huiswerkVoorDeDag.forEach(huiswerk => {
                 const listItem = document.createElement("li");
                 listItem.className = "huiswerk-item";
